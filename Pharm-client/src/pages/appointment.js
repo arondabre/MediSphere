@@ -50,7 +50,7 @@ const Orders = (props) => {
   return (
     <>
       <Typography variant="h5" className={classes.title}>
-        Order History
+        Appointment History
       </Typography>
       <Grid item container direction="row">
         <Grid item xs={12} sm={1} />
@@ -64,7 +64,7 @@ const Orders = (props) => {
                   </Grid>
                 ))
               ) : (
-                <p className={classes.para}>No Orders present.</p>
+                <p className={classes.para}>No Appointment present.</p>
               )
             ) : null}
           </Grid>

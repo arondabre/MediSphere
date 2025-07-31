@@ -111,18 +111,18 @@ const BookingCard = (props) => {
     >
       <div style={{ marginLeft: 20 }}>
         <Typography gutterBottom variant="body1" color="textSecondary">
-          OrderId - #{order._id}
+          BookingId - #{order._id}
         </Typography>
         <Typography gutterBottom variant="body1" color="textPrimary">
-          {role === "ROLE_USER" && `Ordered From - glen`}
+          {role === "ROLE_USER" && `Booking From - glen`}
           {role === "ROLE_SELLER" &&
-            `Ordered By - , +91 `}
+            `Booking By - , +91 `}
         </Typography>
 
         <Typography gutterBottom variant="body1" color="textPrimary">
-          {role === "ROLE_DOCTOR" && `Ordered From - glen`}
+          {role === "ROLE_DOCTOR" && `Booking From - glen`}
           {role === "ROLE_DOCTOR" &&
-            `Ordered By - , +91 `}
+            `Booking By - , +91 `}
         </Typography>
 
         {role === "ROLE_USER" && (
@@ -158,7 +158,7 @@ const BookingCard = (props) => {
           
         </div>
         <Typography gutterBottom variant="body1" color="textPrimary">
-          Ordered - {dayjs(order.createdAt).fromNow()}
+          Booked - {dayjs(order.createdAt).fromNow()}
         </Typography>
         <div style={{ display: "flex", flexDirection: "row" }}>
           <FiberManualRecordIcon
@@ -168,7 +168,7 @@ const BookingCard = (props) => {
             }
           />
           <Typography gutterBottom variant="body1" color="textPrimary">
-            Order {order.status}
+            Appointment {order.status}
           </Typography>
         </div>
         {role === "ROLE_USER" && order.status === "Placed" && (
@@ -177,17 +177,17 @@ const BookingCard = (props) => {
             onClick={handleCancel}
             disabled={order.status !== "Placed"}
           >
-            Cancel Order
+            Cancel Appointment
           </Button>
         )}
         {role === "ROLE_SELLER" && order.status === "Placed" && (
           <>
             <div style={{ display: "inline-block" }}>
               <Button className={classes.buttonCancel} onClick={handleCancel}>
-                Cancel Order
+                Cancel Appointment
               </Button>
               <Button className={classes.buttonAccept} onClick={handleAccept}>
-                Accept Order
+                Accept Appointment
               </Button>
             </div>
           </>
@@ -197,10 +197,10 @@ const BookingCard = (props) => {
           <>
             <div style={{ display: "inline-block" }}>
               <Button className={classes.buttonCancel} onClick={handleCancel}>
-                Cancel Order
+                Cancel Appointment
               </Button>
               <Button className={classes.buttonAccept} onClick={handleAccept}>
-                Accept Order
+                Accept Appointment
               </Button>
             </div>
           </>
@@ -213,7 +213,7 @@ const BookingCard = (props) => {
         )}
         {role === "ROLE_SELLER" && order.status === "Out For Delivery" && (
           <Button className={classes.buttonAccept} onClick={handleCompleted}>
-            Order Completed
+            Appointment Completed
           </Button>
         )}
 
@@ -225,7 +225,7 @@ const BookingCard = (props) => {
         )}
         {role === "ROLE_DOCTOR" && order.status === "Out For Delivery" && (
           <Button className={classes.buttonAccept} onClick={handleCompleted}>
-            Order Completed
+            Appointment Completed
           </Button>
         )}
         <br />

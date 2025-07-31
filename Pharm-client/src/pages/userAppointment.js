@@ -181,7 +181,6 @@ const HomeStart = () => {
               value={selectedDoctor}
               onChange={(e) => setSelectedDoctor(e.target.value)}
             >
-              <MenuItem value="Bakery">Bakery</MenuItem>
               <MenuItem value="Dentist">Dentist</MenuItem>
               <MenuItem value="Cardiologist">Cardiologist</MenuItem>
               <MenuItem value="Neurologist">Neurologist</MenuItem>
