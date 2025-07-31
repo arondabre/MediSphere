@@ -12,60 +12,60 @@ import BackgroundImage from '../images/med1.jpg'
 
 const useStyles = makeStyles((theme) => ({
   presentation: {
-    display: "flex",
-    width: "100%",
-    margin: "auto",
-    minHeight: "30vh",
-    alignItems: "center",
-    // eslint-disable-next-line
-    ["@media (max-width:1024px)"]: {
-      flexDirection: "column",
+      display: "flex",
+      width: "100%",
+      margin: "auto",
+      minHeight: "10vh",
+      alignItems: "center",
+      // eslint-disable-next-line
+      ["@media (max-width:1024px)"]: {
+        flexDirection: "column",
+      },
     },
-  },
-  background: {
-    backgroundImage: `url(${BackgroundImage})`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: '50% 65.5%',
-    height: '55vh',
-    width: '100%'
-  },
-  introduction: {
-    flex: 1,
-    paddingLeft: 60,
-    height: "340px",
-  },
-  safeFood: {
-    marginTop: 30,
-    fontSize: 44,
-    fontWeight: 500,
-  },
-  delivery: {
-    color: "#157a21",
-    fontSize: 44,
-    fontWeight: "bold",
-    marginTop: -20,
-    marginBottom: -15,
-  },
-  paragraph: {
-    width: 400,
-    fontSize: 14.5,
-  },
-  // cover: {
-  //   flex: 1,
-  //   display: "flex",
-  //   justifyContent: "auto",
-  //   height: "50vh",
-  // },
-  coverImg: {
-    height: "auto",
-    width: "auto",
-  },
-  ctaOrder: {
-    fontSize: 18,
-    backgroundColor: "dimgray",
-    marginTop: 30,
-  },
+    background: {
+      backgroundImage: `url(${BackgroundImage})`,
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: '50% 65.5%',
+      height: '55vh',
+      width: '100%'
+    },
+    introduction: {
+      flex: 1,
+      paddingLeft: 60,
+      height: "340px",
+    },
+    safeFood: {
+      marginTop: 10,
+      fontSize: 44,
+      fontWeight: 500,
+    },
+    delivery: {
+      color: "#157a21",
+      fontSize: 44,
+      fontWeight: "bold",
+      marginTop: -20,
+      marginBottom: -15,
+    },
+    paragraph: {
+      width: 400,
+      fontSize: 14.5,
+    },
+    // cover: {
+    //   flex: 1,
+    //   display: "flex",
+    //   justifyContent: "auto",
+    //   height: "50vh",
+    // },
+    coverImg: {
+      height: "auto",
+      width: "auto",
+    },
+    ctaOrder: {
+      fontSize: 18,
+      backgroundColor: "dimgray",
+      marginTop: 20,
+    },
 }));
 
 const HomeStart = () => {
@@ -75,10 +75,10 @@ const HomeStart = () => {
     <section className={classes.presentation}>
       <div className={classes.introduction}>
         <Typography className={classes.safeFood} noWrap>
-          MEDICINE
+          DIGITAL
         </Typography>
         <Typography className={classes.delivery} noWrap>
-          DELIVERY
+          HEALTH
         </Typography>
         {/* <Typography variant="body2" className={classes.paragraph}>
           INTRODUCTION........

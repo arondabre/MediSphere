@@ -11,11 +11,58 @@ import Typography from "@material-ui/core/Typography";
 
 import SwipeableImages from "./SwipeableImages";
 
-const useStyles = makeStyles({
-  cardContent: {
-    marginTop: "-40px",
+const useStyles = makeStyles((theme) => ({
+  card: {
+    borderRadius: 16,
+    overflow: "hidden",
+    border: "1px solid #e0e0e0",
+    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.05)",
+    transition: "all 0.3s ease-in-out",
+    backgroundColor: "#ffffff",
+    "&:hover": {
+      boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
+      transform: "translateY(-5px)",
+    },
   },
-});
+  cardContent: {
+    padding: theme.spacing(3),
+  },
+  cardTitle: {
+    fontWeight: 600,
+    fontSize: "1.3rem",
+    color: "#2d3436",
+    marginBottom: 4,
+  },
+  cardTags: {
+    fontSize: "0.95rem",
+    color: "#636e72",
+    marginBottom: theme.spacing(1),
+  },
+  paymentText: {
+    fontSize: "0.95rem",
+    color: "#2d3436",
+    fontWeight: 500,
+  },
+  cardActions: {
+    padding: theme.spacing(2),
+    borderTop: "1px solid #eee",
+    justifyContent: "flex-end",
+  },
+  button: {
+    fontWeight: 600,
+    fontSize: "0.95rem",
+    padding: "8px 20px",
+    borderRadius: 8,
+    backgroundColor: "#1976d2",
+    color: "#fff",
+    boxShadow: "0 2px 8px rgba(25, 118, 210, 0.3)",
+    transition: "all 0.2s ease-in-out",
+    "&:hover": {
+      backgroundColor: "#125ea3",
+      boxShadow: "0 4px 12px rgba(25, 118, 210, 0.4)",
+    },
+  },
+}));
 
 export default function PharmacyCard(props) {
   const {
@@ -38,34 +85,33 @@ export default function PharmacyCard(props) {
     paymentString = `Accepts ${payment[0].toLowerCase()} & ${payment[1].toLowerCase()} payments`;
 
   return (
-    <Card variant="outlined">
-      <SwipeableImages images={imageUrl} type="home" />
-      <CardContent className={classes.cardContent}>
-        <Typography gutterBottom variant="h5" component="h2">
-          {name}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p" noWrap>
-          {tags}
-        </Typography>
-        <Typography variant="body2" color="textPrimary">
-          {paymentString}
-        </Typography>
-      </CardContent>
-      <hr />
-      <CardActions>
-        <Link
-          to={{
-            pathname: `order/${restUrl}`,
-            state: {
-              restId: _id,
-            },
-          }}
-        >
-          <Button size="small" color="primary">
-            Order Online
-          </Button>
-        </Link>
-      </CardActions>
-    </Card>
+    <Card variant="outlined" className={classes.card}>
+  <SwipeableImages images={imageUrl} type="home" />
+  <CardContent className={classes.cardContent}>
+    <Typography className={classes.cardTitle} gutterBottom>
+      {name}
+    </Typography>
+    <Typography className={classes.cardTags} noWrap>
+      {tags}
+    </Typography>
+    <Typography className={classes.paymentText}>
+      {paymentString}
+    </Typography>
+  </CardContent>
+  <CardActions className={classes.cardActions}>
+    <Link
+      to={{
+        pathname: `order/${restUrl}`,
+        state: {
+          restId: _id,
+        },
+      }}
+    >
+      <Button className={classes.button}>
+        Order Online
+      </Button>
+    </Link>
+  </CardActions>
+</Card>
   );
 }

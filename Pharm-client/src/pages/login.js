@@ -10,8 +10,9 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import backgroundImage from "../images/med1.jpg";
 
-import hamBurgerIcon from "../images/drug.png";
+import hamBurgerIcon from "../images/cust.png";
 
 //custom-hook
 import useForm from "../hooks/forms";
@@ -23,9 +24,42 @@ const useStyles = makeStyles((theme) => ({
     margin: "10px 0px 10px 0px",
   },
   hamBurger: {
-    height: 200,
-    width: 240,
+    marginTop:40,
+    height: 170,
+    width: 160,
   },
+pageBackground: {
+    backgroundImage:`url(${backgroundImage})`, // or require("./images/bg.jpg")
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    minHeight: "20vh",
+    width: "100%",
+  },
+  textFieldCustom: {
+  backgroundColor: "#f5f7fa", // slightly grayish white to contrast white bg
+  borderRadius: 8,
+  boxShadow: "0 10px 15px rgba(0, 0, 0, 0.15)", // darker shadow to pop
+  marginBottom: 15,
+  "& .MuiInputBase-input": {
+    fontSize: "0.95rem",
+    fontWeight: 500,
+    padding: "9px 12px", // reduced vertical padding for smaller height
+  },
+  "& .MuiOutlinedInput-root": {
+    minHeight: 42, // Optional: hard limit on height if needed
+    "& fieldset": {
+      borderColor: "#ccc",
+    },
+    "&:hover fieldset": {
+      borderColor: "#848690", // blue-ish on hover
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "#848690", // blue-ish on focus
+      borderWidth: 2,
+    },
+  },
+},
 }));
 
 export default function Login() {
@@ -62,6 +96,7 @@ export default function Login() {
   }
 
   return (
+    <div className={classes.pageBackground}>
     <Grid container className={classes.form}>
       <Grid item sm />
       <Grid item sm style={{ marginBottom: 34 }}>
@@ -70,7 +105,7 @@ export default function Login() {
           alt="hamBurger"
           className={classes.hamBurger}
         />
-        <Typography variant="h3" className={classes.title}>
+        <Typography variant="h3" className={classes.title}style={{fontSize:40}}>
           Login
         </Typography>
         <form noValidate onSubmit={handleSubmit}>
@@ -84,7 +119,7 @@ export default function Login() {
             id="email"
             name="email"
             label="Email"
-            className={classes.textField}
+            className={classes.textFieldCustom}
             onChange={handleInputChange}
             value={inputs.email}
             fullWidth
@@ -94,7 +129,7 @@ export default function Login() {
             name="password"
             type="password"
             label="Password"
-            className={classes.textField}
+            className={classes.textFieldCustom}
             onChange={handleInputChange}
             value={inputs.password}
             fullWidth
@@ -137,5 +172,6 @@ export default function Login() {
       </Grid>
       <Grid item sm />
     </Grid>
+    </div>
   );
 }

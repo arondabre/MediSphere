@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
   ...theme.spreadThis,
   title: {
     margin: "48px 0px 10px 0px",
+    marginBottom:-5
   },
 }));
 
@@ -82,7 +83,7 @@ export default function Register() {
     <Grid container className={classes.form}>
       <Grid item sm />
       <Grid item sm>
-        <Typography variant="h3" className={classes.title}>
+        <Typography variant="h3" className={classes.title}style={{fontSize:40}}>
           Register{" "}
           <span role="img" aria-label="Pizza Emoji">
           👤

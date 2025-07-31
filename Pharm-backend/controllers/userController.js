@@ -654,7 +654,7 @@ exports.postBookingStatus = (req, res, next) => {
         throw error;
       }
 
-      Booking.status = status;
+      order.status = status;
       return order.save();
     })
     .then((updatedOrder) => {

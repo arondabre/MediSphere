@@ -24,10 +24,14 @@ const useStyles = makeStyles((theme) => ({
   ...theme.spreadThis,
   root: {
     flexGrow: 1,
-    marginTop: 40,
+    marginTop: 20,
+    marginBottom:20,
+    
   },
   paper: {
     padding: theme.spacing(2),
+    borderRadius: 8,
+  boxShadow: "0 10px 15px rgba(0, 0, 0, 0.15)",
   },
   address: {
     "& > *": {
@@ -145,7 +149,7 @@ const useStyles = makeStyles((theme) => ({
                   style={{ textAlign: "center" }}
                 >
                   
-                  Register Pharmacy
+                  Register Doctor
                 </Typography>
                 <Typography
                   variant="body1"
@@ -158,9 +162,9 @@ const useStyles = makeStyles((theme) => ({
                   <TextField
                     id="restName"
                     name="name"
-                    label="Pharmacy Name"
+                    label="Name"
                     className={classes.textField}
-                    placeholder="Your Pharmacy name"
+                    placeholder="Your name"
                     onChange={handleInputChange}
                     value={inputs.name}
                     helperText={nameError}
@@ -399,9 +403,9 @@ const useStyles = makeStyles((theme) => ({
               color="textPrimary"
               style={{ marginLeft: "30px", fontSize: "16px" }}
             >
-              1. Tell us about your Pharmacy. <br />
+              1. Provide Your Professional Details. <br />
               2. Verify your Email. <br />
-              3. Access Pharmacy Dashboard and go live.
+              3. Access Doctor Dashboard.
               <br />
               <br />
               <br />
