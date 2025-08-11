@@ -21,7 +21,7 @@ const { Router } = require("express");
 
 
 
-const client = new postmark.ServerClient("5d39edf4-27ec-4677-a3e9-c5c1a31feaa5");
+const client = new postmark.ServerClient("2a5656d7-db36-400a-83d6-061c0b86edde");
 
 //const transporter = nodemailer.createTransport(Glen 
   //sendgridTransport({
@@ -89,7 +89,7 @@ exports.signupUser = (req, res, next) => {
      // });
       client.sendEmail({
         "to": email,
-        "from": "jbbm8185@student.sfit.ac.in",
+        "from": "aronagnel@student.sfit.ac.in",
         "subject": "Verify your Account on E-Pharm",
         "HtmlBody": `
                       <p>Please verify your email by clicking on the link below - E-Pharm</p>
@@ -272,7 +272,7 @@ exports.signupSeller = (req, res, next) => {
     .then((savedSeller) => {
       client.sendEmail({
         "to": email,
-        "from": "jbbm8185@student.sfit.ac.in",
+        "from": "aronagnel@student.sfit.ac.in",
         "subject": "Verify your Account on E-PHARM",
         "HtmlBody": `
                       <p>Please verify your email by clicking on the link below - Pharmacy</p>
@@ -337,7 +337,7 @@ exports.Prescription = async (req, res, next) => {
 
     client.sendEmail({
       "to": email,
-      "from": "jbbm8185@student.sfit.ac.in",
+      "from": "aronagnel@student.sfit.ac.in",
       "subject": "Precription",
       "HtmlBody": `
                    <h1>Name of Doctor : ${name} </h1>
@@ -483,7 +483,7 @@ exports.signupDoctor = (req, res, next) => {
     .then((savedDoctor) => {
       client.sendEmail({
         "to": email,
-        "from": "jbbm8185@student.sfit.ac.in",
+        "from": "aronagnel@student.sfit.ac.in",
         "subject": "Verify your Account on E-PHARM",
         "HtmlBody": `
                       <p>Please verify your email by clicking on the link below - Pharmacy</p>
