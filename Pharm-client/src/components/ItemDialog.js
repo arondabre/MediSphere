@@ -73,7 +73,7 @@ export default function SellerDashboard(props) {
           <TextField
             name="description"
             label="Description"
-            placeholder="Spicy, non-veg, Basil leaves"
+            placeholder="Cough Syrup, Lotion, Capsule"
             className={classes.textField}
             value={inputs.description}
             onChange={handleInputChange}

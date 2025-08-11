@@ -83,9 +83,6 @@ export default function AppBarPrimary() {
               <Link to="/doctor/appointment">
                 <Button className={classes.buttonStyles}>Appointments</Button>
               </Link>
-              <Link to="/doctor/patients">
-                <Button className={classes.buttonStyles}>Patients</Button>
-              </Link>
               <Button
                 onClick={handleLogout}
                 className={classes.buttonStyles}

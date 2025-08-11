@@ -76,7 +76,7 @@ export default function Footer() {
               most important — delighting your customers
             </Typography>
             <br />
-            <Link to="/upload" style={{ textDecoration: 'none' }}>
+            <Link to="/addPharmacy" style={{ textDecoration: 'none' }}>
               <Button className={classes.buttonStyleOne} style={{marginTop:'-10px'}} >PHARMACY</Button>
             </Link>
 

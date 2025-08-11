@@ -50,6 +50,7 @@ const Pre = () => {
       seller_email:Pharmacy.email,
       img:image,
       Yname:inputs.Yname,
+      Email:inputs.Email,
       Aptname:inputs.Aptname,
       Local:inputs.Local,
       street:inputs.Street,
@@ -57,7 +58,6 @@ const Pre = () => {
       Phone:inputs.Phone,
     };
     
-    console.log(newUserData,'dfghjkfghj');
     const {data} = await axios.post('/auth/Prescription',newUserData)
 
     //e.preventDefault();
@@ -78,6 +78,7 @@ const Pre = () => {
     {
       Doc:"",
       Yname:"",
+      Email:"",
       Aptname:"",
       Local:"",
       street:"",
@@ -114,6 +115,15 @@ const Pre = () => {
     placeholder="Your Name"
     onChange={handleInputChange}
     value={inputs.Yname}
+    required
+/>
+
+<TextField
+    id="email"
+    name="Email"
+    placeholder="Your Email"
+    onChange={handleInputChange}
+    value={inputs.Email}
     required
 />
 

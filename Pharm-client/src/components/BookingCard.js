@@ -69,10 +69,12 @@ const useStyles = makeStyles((theme) => ({
 const BookingCard = (props) => {
   const order = props.order;
   const role = props.role;
+  
   const classes = useStyles();
   dayjs.extend(relativeTime);
   const dispatch = useDispatch();
   const handleCancel = () => {
+    
     const body = {
       status: "Cancelled",
     };
@@ -80,6 +82,7 @@ const BookingCard = (props) => {
   };
 
   const handleAccept = () => {
+
     const body = {
       status: "Accepted",
     };
@@ -96,11 +99,14 @@ const BookingCard = (props) => {
   const handleCompleted = () => {
     const body = {
       status: "Completed",
+      doctor: order.doctor.doctorId,
+      time : order.time,
     };
     dispatch(changeBookingStatus(order._id, body));
   };
 
   return (
+    console.log(order),
     <Paper
       style={{
         backgroundColor: "#faf7f7",
@@ -109,51 +115,29 @@ const BookingCard = (props) => {
       }}
       elevation={4}
     >
+      
       <div style={{ marginLeft: 20 }}>
         <Typography gutterBottom variant="body1" color="textSecondary">
           BookingId - #{order._id}
         </Typography>
         <Typography gutterBottom variant="body1" color="textPrimary">
-          {role === "ROLE_USER" && `Booking From - glen`}
-          {role === "ROLE_SELLER" &&
-            `Booking By - , +91 `}
+          {role === "ROLE_USER" && `Booking of - ${order.doctor.name}`}
+          
         </Typography>
 
         <Typography gutterBottom variant="body1" color="textPrimary">
-          {role === "ROLE_DOCTOR" && `Booking From - glen`}
+          {role === "ROLE_DOCTOR" && `Booking From - ${order.user.name}`}
           {role === "ROLE_DOCTOR" &&
-            `Booking By - , +91 `}
+            `Patient Phone : - ${order.user.address.phoneNo}`}
         </Typography>
 
         {role === "ROLE_USER" && (
           <Typography gutterBottom variant="body1" color="textPrimary">
-            Call - +91
+            Call - {order.doctor.phone}
           </Typography>
         )}
 
-        {role === "ROLE_SELLER" && (
-          <Typography gutterBottom variant="body1" color="textPrimary">
-            Address -{" "}
-            {
-              order.doctor._id + ", " + order.user._id
-              // (`${order.user.address.aptName}, ${order.user.address.locality}`,
-              // `${order.user.address.street}`)
-            }
-          </Typography>
-
-        )}
-
-          {role === "ROLE_DOCTOR" && (
-          <Typography gutterBottom variant="body1" color="textPrimary">
-            Address -{" "}
-            {
-              order.doctor._id + ", " + order.user._id
-              // (`${order.user.address.aptName}, ${order.user.address.locality}`,
-              // `${order.user.address.street}`)
-            }
-          </Typography>
-
-        )}
+        
         <div style={{ margin: "10px 20px 10px 0px" }}>
           
         </div>
@@ -211,19 +195,14 @@ const BookingCard = (props) => {
             Out For Delivery
           </Button>
         )}
-        {role === "ROLE_SELLER" && order.status === "Out For Delivery" && (
+        
+        {/* {role === "ROLE_SELLER" && order.status === "Out For Delivery" && (
           <Button className={classes.buttonAccept} onClick={handleCompleted}>
             Appointment Completed
           </Button>
-        )}
-
+        )} */}
 
         {role === "ROLE_DOCTOR" && order.status === "Accepted" && (
-          <Button className={classes.buttonAccept} onClick={handleDelivery}>
-            Out For Delivery
-          </Button>
-        )}
-        {role === "ROLE_DOCTOR" && order.status === "Out For Delivery" && (
           <Button className={classes.buttonAccept} onClick={handleCompleted}>
             Appointment Completed
           </Button>

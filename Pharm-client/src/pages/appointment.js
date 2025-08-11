@@ -33,6 +33,7 @@ const Orders = (props) => {
   const classes = useStyles();
 
   useEffect(() => {
+    console.log("af");
     dispatch(getbooking());
     const socket = openSocket(process.env.REACT_APP_SERVER_URL);
     socket.emit("add-user", { userId: _id });
@@ -41,12 +42,12 @@ const Orders = (props) => {
         dispatch(socketStatusUpdate(data.order));
       }
       if (data.action === "create") {
-        dispatch(getOrders());
-        dispatch(getOrders());
+        dispatch(getbooking());
+        
       }
     });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  console.log(orders);
+  
   return (
     <>
       <Typography variant="h5" className={classes.title}>
@@ -59,6 +60,7 @@ const Orders = (props) => {
             {orders ? (
               orders.length > 0 ? (
                 orders.map((order) => (
+                  console.log(order),
                   <Grid item xs={12} sm={4} key={order._id}>
                     <BookingCard order={order} role={role} />
                   </Grid>

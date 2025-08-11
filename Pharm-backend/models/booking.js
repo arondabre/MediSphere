@@ -4,6 +4,9 @@ const Schema = mongoose.Schema;
 
 const bookingSchema = new Schema(
   {
+    time : {
+      type: String,
+    },
     status: {
       type: String,
       required: true,
@@ -16,6 +19,18 @@ const bookingSchema = new Schema(
       ],
     },
     user: {
+      email: {
+        type: String,
+        required: true,
+      },
+      address: {
+        type: Object,
+        required: true,
+      },
+      name: {
+        type: String,
+        required: true,
+      },
       userId: {
         type: Schema.Types.ObjectId,
         required: true,
@@ -23,6 +38,14 @@ const bookingSchema = new Schema(
       },
     },
     doctor: {
+      phone: {
+        type: Number,
+        required: true,
+      },
+      name: {
+        type: String,
+        required: true,
+      },
       doctorId: {
         type: Schema.Types.ObjectId,
         required: true,

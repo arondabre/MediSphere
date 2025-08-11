@@ -78,6 +78,7 @@ const HomeStart = () => {
     const [selectedDoctor, setSelectedDoctor] = useState('');
     const doctorList = useSelector((state) => state.data.doctorList || []);
     const [searchInitiated, setSearchInitiated] = useState(false);
+    const [selectedTime, setSelectedTime] = useState('');
 
     const handleSearch = (specialist) => {
       if (selectedDoctor) {
@@ -85,12 +86,26 @@ const HomeStart = () => {
 
         }
       };
-      
+    
+    const handleTimeChange = (doctorId, value) => {
+      setSelectedTime((prev) => ({
+        ...prev,
+        [doctorId]: value
+      }));
+    };
 
     const handleBookDoctor = (doctor) =>{
+      const timeForDoctor = selectedTime[doctor._id]; 
+
+      if (!timeForDoctor) {
+        alert("Please select a time before booking.");
+        return;
+      }
+      
       const bookingData = {
-        doctorId: doctor._id,
-        user :UserData._id,
+        Doctor: doctor,
+        user :UserData,
+        Time :selectedTime[doctor._id],
         status:"Placed"
       };
       dispatch(addappointment(bookingData))
@@ -98,76 +113,21 @@ const HomeStart = () => {
           if (res?.message === "Appointment booked") {
             alert("Appointment booked successfully!");
             history.push("/"); // redirect to home
-          } else {
-            alert("Failed to book appointment");
+          } else if (res?.message === "Time slot already booked"){
+            alert("Selected time slot is not available");
+          }else{
+            console.log(res);
+            alert ("Failed to book appointment")
           }
         })
         .catch((err) => {
           console.error(err);
           alert("Something went wrong");
         });
+      
     };
 
-//    return (
-//     <div className={classes.background}>
-//       <section className={classes.presentation}>
-//         <div className={classes.introduction}>
-//           <Typography className={classes.safeFood} noWrap>MEDICINE</Typography>
-//           <Typography className={classes.delivery} noWrap>DELIVERY</Typography>
 
-//           {/* Search form */}
-//           <div className={classes.searchContainer}>
-//             <FormControl className={classes.selectControl}>
-//               <InputLabel id="doctor-label">Select Specialist</InputLabel>
-//               <Select
-//                 labelId="doctor-label"
-//                 value={selectedDoctor}
-//                 onChange={(e) => setSelectedDoctor(e.target.value)}
-//               >
-//                 <MenuItem value="Bakery">Bakery</MenuItem>
-//                 <MenuItem value="dentist">Dentist</MenuItem>
-//                 <MenuItem value="cardio">Cardiologist</MenuItem>
-//                 <MenuItem value="neuro">Neurologist</MenuItem>
-//                 <MenuItem value="derma">Dermatologist</MenuItem>
-//               </Select>
-//             </FormControl>
-
-//             <Button
-//               variant="contained"
-//               color="primary"
-//               onClick={() => handleSearch(selectedDoctor)}
-//               className={classes.searchButton}
-//             >
-//               Search
-//             </Button>
-//           </div>
-
-//           {/* Doctor List */}
-//           <div className={classes.doctorList}>
-//             {doctorList.length > 0 ? (
-//               doctorList.map((doc) => (
-//                 <div key={doc._id} className={classes.doctorCard}>
-//                   <Typography variant="h6">Dr. {doc.name}</Typography>
-//                   <Typography variant="body2">Min Order: ₹{doc.minOrderAmount}</Typography>
-//                   <Typography variant="body2">Tags: {doc.tags}</Typography>
-//                   <Button 
-//                     variant="contained" 
-//                     color="primary" 
-//                     onClick={() => handleBookDoctor(doc)}
-//                   >
-//                     Book
-//                   </Button>
-//                 </div>
-//               ))
-//             ) : (
-//               <Typography>No doctors found for the selected specialty.</Typography>
-//             )}
-//           </div>
-//         </div>
-//       </section>
-//     </div>
-//   );
-// };
     return (
     <div className={classes.backgroundWrapper}>
       <div className={classes.contentBox}>
@@ -186,6 +146,7 @@ const HomeStart = () => {
               <MenuItem value="Neurologist">Neurologist</MenuItem>
               <MenuItem value="Dermatologist">Dermatologist</MenuItem>
             </Select>
+
           </FormControl>
 
           <Button
@@ -201,11 +162,25 @@ const HomeStart = () => {
         <Grid container spacing={3} className={classes.doctorGrid}>
           {doctorList.length > 0 ? (
             doctorList.map((doc) => (
+              
               <Grid item xs={12} sm={6} md={4} key={doc._id}>
                 <Paper className={classes.doctorCard}>
                   <Typography variant="h6">Dr. {doc.name}</Typography>
-                  <Typography variant="body2">Min Order: ₹{doc.minOrderAmount || 0}</Typography>
+                  <Typography variant="body2">Fees: ₹{doc.Fees || 0}</Typography>
                   <Typography variant="body2">Speciality: {doc.tags}</Typography>
+                  <Typography variant="body2">Address: {doc.address.street}</Typography>
+                  <Typography variant="body2">Phone: {doc.address.phoneNo}</Typography>
+
+                  <Select
+                    labelId={`specialist-label-${doc._id}`}
+                    value={selectedTime[doc._id] || ""}
+                    onChange={(e) => handleTimeChange(doc._id, e.target.value)}
+                  >
+                    <MenuItem value="9:00AM">9:00AM</MenuItem>
+                    <MenuItem value="9:15AM">9:15AM</MenuItem>
+                    <MenuItem value="9:30AM">9:30AM</MenuItem>
+                    <MenuItem value="9:45AM">9:45AM</MenuItem>
+                  </Select>
 
                   {/* <Typography variant="body2">Tags: {doc.tags}</Typography> */}
                   <Button

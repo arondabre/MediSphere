@@ -78,6 +78,8 @@ const useStyles = makeStyles((theme) => ({
   let nameError = null;
   let tagsError = null;
   let paymentError = null;
+  let timeError = null;
+  let FeesError = null;
 
   if (errors) {
     for (let error of errors) {
@@ -95,6 +97,8 @@ const useStyles = makeStyles((theme) => ({
       if (error.msg.includes("Specialty cannot")) tagsError = error.msg;
       if (error.msg.includes("Payment cannot be")) paymentError = error.msg;
       if (error.msg.includes("Restaurant Name")) nameError = error.msg;
+      if (error.msg.includes("Enter Time")) timeError = error.msg;
+      if (error.msg.includes("Enter Fees")) FeesError = error.msg;
     }
   }
 
@@ -115,6 +119,9 @@ const useStyles = makeStyles((theme) => ({
     formData.append("confirmPassword", inputs.confirmPassword);
     formData.append("payment", inputs.payment);
     formData.append("role", "ROLE_DOCTOR");
+    formData.append("time", inputs.time);
+    formData.append("Fees", inputs.Fees);
+    
     dispatch(signupDoctor(formData, history));
   };
 
@@ -131,6 +138,8 @@ const useStyles = makeStyles((theme) => ({
       payment: "",
       password: "",
       confirmPassword: "",
+      time : "",
+      Fees : "",
     },
     signupSellerHandle
   );
@@ -198,6 +207,33 @@ const useStyles = makeStyles((theme) => ({
                     fullWidth
                     required
                   />
+
+                  <TextField
+                    id="time"
+                    name="time"
+                    label="Time"
+                    placeholder="9:00AM-5:00PM"
+                    className={classes.textField}
+                    onChange={handleInputChange}
+                    value={inputs.time}
+                    helperText={timeError}
+                    error={tagsError ? true : false}
+                    fullWidth
+                    required
+                  />
+                  <TextField
+                    id="Fees"
+                    name="Fees"
+                    label="Fees"
+                    placeholder="400 CAD"
+                    className={classes.textField}
+                    onChange={handleInputChange}
+                    value={inputs.Fees}
+                    helperText={FeesError}
+                    error={FeesError ? true : false}
+                    fullWidth
+                    required
+                  />
                   
                   <Typography
                     variant="body2"
@@ -252,7 +288,7 @@ const useStyles = makeStyles((theme) => ({
                       value={inputs.zip}
                       helperText={zipError}
                       error={zipError ? true : false}
-                      type="number"
+                      type="text"
                       fullWidth
                       required
                     />
