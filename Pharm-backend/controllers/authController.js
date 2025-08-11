@@ -23,7 +23,7 @@ const { Router } = require("express");
 
 const client = new postmark.ServerClient("5d39edf4-27ec-4677-a3e9-c5c1a31feaa5");
 
-//const transporter = nodemailer.createTransport(
+//const transporter = nodemailer.createTransport(Glen 
   //sendgridTransport({
     //auth: {
       //api_key: process.env.email_KEY,
@@ -310,7 +310,7 @@ exports.Prescription = async (req, res, next) => {
 
   const name = req.body.Doc;
   const image = req.body.img;
-  const email = req.body.seller_email;
+  const email = req.body.Email;
   const cusName = req.body.Yname;
   const Apt   = req.body.Aptname;
   const Local = req.body.Local;
@@ -333,7 +333,7 @@ exports.Prescription = async (req, res, next) => {
     })
 
     //const email= await  Account.find({email:"frisanjohn@student.sfit.ac.in"})
-    //console.log(email)
+    console.log(email)
 
     client.sendEmail({
       "to": email,
@@ -429,12 +429,14 @@ exports.signupDoctor = (req, res, next) => {
   const lng = req.body.lng;
   const locality = req.body.locality;
   const zip = req.body.zip;
+  const time = req.body.time;
+  const Fees = req.body.Fees;
 
   let token;
 
   if (role !== "ROLE_DOCTOR") {
     const error = new Error(
-      "Signing up a seller should have a role of ROLE_SELLER"
+      "Signing up a seller should have a role of ROLE_Doctor"
     );
     error.statusCode = 500;
     throw error;
@@ -472,22 +474,11 @@ exports.signupDoctor = (req, res, next) => {
           lat: lat,
           lng: lng,
         },
+        time : [],
+        Fees : Fees,
       });
       return doctor.save();
     })
-
-
-    //transporter.sendMail({
-    //  to: email,
-    //  from: "jbbm8185@student.sfit.ac.in",
-    //  subject: "Verify your Account on E-PHARM",
-    //  Html: `
-    //                <p>Please verify your email by clicking on the link below - FoodHub</p>
-    //                <p>Click this <a href="http://localhost:3002/auth/verify/${token}">link</a> to verify your account.</p>
-    //              `,
-    //});
-
-
 
     .then((savedDoctor) => {
       client.sendEmail({
@@ -512,19 +503,48 @@ exports.signupDoctor = (req, res, next) => {
 };
 
 exports.createBooking = (req, res, next) => {
-  const booking = new Booking({
-    doctor: {
-      doctorId: req.body.doctorId,
-    },
-    user: {
-      userId: req.body.user,
-    },
-    status: req.body.status,
-  });
-  console.log(booking);
-  return booking.save()
-    .then((book) => {
-      res.status(200).json({ message: "Appointment booked" });
+  const Time = req.body.Time;
+
+  Doctor.findById(req.body.Doctor._id)
+    .then((doctor) => {
+      if (!doctor) {
+        return res.status(404).json({ message: "Doctor not found" });
+      }
+
+      // Ensure `time` array exists
+      if (!Array.isArray(doctor.time)) {
+        doctor.time = [];
+      }
+
+      // If time is already booked
+      if (doctor.time.includes(Time)) {
+        return res.status(400).json({ message: "Time slot already booked" });
+      }
+      
+      // Create booking
+      const booking = new Booking({
+        user: {
+              email: req.body.user.account.email,
+              name: req.body.user.firstName,
+              address: req.body.user.address,
+              userId: req.body.user.account._id,
+        },
+        doctor: {
+              name: req.body.Doctor.name,
+              phone: req.body.Doctor.address.phoneNo,
+              doctorId: req.body.Doctor._id,
+        },
+        status: req.body.status,
+        time : req.body.Time,
+      });
+
+      // Save booking, then update doctor
+      return booking.save().then(() => {
+        doctor.time.push(Time);
+        return doctor.save();
+      }).then(() => {
+        res.status(200).json({ message: "Appointment booked" });
+      });
     })
     .catch((err) => {
       if (!err.statusCode) err.statusCode = 500;

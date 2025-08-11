@@ -24,10 +24,14 @@ const useStyles = makeStyles((theme) => ({
   ...theme.spreadThis,
   root: {
     flexGrow: 1,
-    marginTop: 40,
+    marginTop: 20,
+    marginBottom:20,
+    
   },
   paper: {
     padding: theme.spacing(2),
+    borderRadius: 8,
+  boxShadow: "0 10px 15px rgba(0, 0, 0, 0.15)",
   },
   address: {
     "& > *": {
@@ -74,6 +78,8 @@ const useStyles = makeStyles((theme) => ({
   let nameError = null;
   let tagsError = null;
   let paymentError = null;
+  let timeError = null;
+  let FeesError = null;
 
   if (errors) {
     for (let error of errors) {
@@ -91,6 +97,8 @@ const useStyles = makeStyles((theme) => ({
       if (error.msg.includes("Specialty cannot")) tagsError = error.msg;
       if (error.msg.includes("Payment cannot be")) paymentError = error.msg;
       if (error.msg.includes("Restaurant Name")) nameError = error.msg;
+      if (error.msg.includes("Enter Time")) timeError = error.msg;
+      if (error.msg.includes("Enter Fees")) FeesError = error.msg;
     }
   }
 
@@ -111,6 +119,9 @@ const useStyles = makeStyles((theme) => ({
     formData.append("confirmPassword", inputs.confirmPassword);
     formData.append("payment", inputs.payment);
     formData.append("role", "ROLE_DOCTOR");
+    formData.append("time", inputs.time);
+    formData.append("Fees", inputs.Fees);
+    
     dispatch(signupDoctor(formData, history));
   };
 
@@ -127,6 +138,8 @@ const useStyles = makeStyles((theme) => ({
       payment: "",
       password: "",
       confirmPassword: "",
+      time : "",
+      Fees : "",
     },
     signupSellerHandle
   );
@@ -145,7 +158,7 @@ const useStyles = makeStyles((theme) => ({
                   style={{ textAlign: "center" }}
                 >
                   
-                  Register Pharmacy
+                  Register Doctor
                 </Typography>
                 <Typography
                   variant="body1"
@@ -158,9 +171,9 @@ const useStyles = makeStyles((theme) => ({
                   <TextField
                     id="restName"
                     name="name"
-                    label="Pharmacy Name"
+                    label="Name"
                     className={classes.textField}
-                    placeholder="Your Pharmacy name"
+                    placeholder="Your name"
                     onChange={handleInputChange}
                     value={inputs.name}
                     helperText={nameError}
@@ -191,6 +204,33 @@ const useStyles = makeStyles((theme) => ({
                     value={inputs.tags}
                     helperText={tagsError}
                     error={tagsError ? true : false}
+                    fullWidth
+                    required
+                  />
+
+                  <TextField
+                    id="time"
+                    name="time"
+                    label="Time"
+                    placeholder="9:00AM-5:00PM"
+                    className={classes.textField}
+                    onChange={handleInputChange}
+                    value={inputs.time}
+                    helperText={timeError}
+                    error={tagsError ? true : false}
+                    fullWidth
+                    required
+                  />
+                  <TextField
+                    id="Fees"
+                    name="Fees"
+                    label="Fees"
+                    placeholder="400 CAD"
+                    className={classes.textField}
+                    onChange={handleInputChange}
+                    value={inputs.Fees}
+                    helperText={FeesError}
+                    error={FeesError ? true : false}
                     fullWidth
                     required
                   />
@@ -248,7 +288,7 @@ const useStyles = makeStyles((theme) => ({
                       value={inputs.zip}
                       helperText={zipError}
                       error={zipError ? true : false}
-                      type="number"
+                      type="text"
                       fullWidth
                       required
                     />
@@ -371,7 +411,7 @@ const useStyles = makeStyles((theme) => ({
                     className={classes.small}
                     style={{ marginLeft: "260px" }}
                   >
-                    Partner with E-Pharma and scale your business
+                    Partner with MEDISPHERE and scale your business
                   </small>
                 </form>
               </Grid>
@@ -399,9 +439,9 @@ const useStyles = makeStyles((theme) => ({
               color="textPrimary"
               style={{ marginLeft: "30px", fontSize: "16px" }}
             >
-              1. Tell us about your Pharmacy. <br />
+              1. Provide Your Professional Details. <br />
               2. Verify your Email. <br />
-              3. Access Pharmacy Dashboard and go live.
+              3. Access Doctor Dashboard.
               <br />
               <br />
               <br />

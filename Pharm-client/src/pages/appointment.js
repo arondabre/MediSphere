@@ -33,6 +33,7 @@ const Orders = (props) => {
   const classes = useStyles();
 
   useEffect(() => {
+    console.log("af");
     dispatch(getbooking());
     const socket = openSocket(process.env.REACT_APP_SERVER_URL);
     socket.emit("add-user", { userId: _id });
@@ -41,16 +42,16 @@ const Orders = (props) => {
         dispatch(socketStatusUpdate(data.order));
       }
       if (data.action === "create") {
-        dispatch(getOrders());
-        dispatch(getOrders());
+        dispatch(getbooking());
+        
       }
     });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  console.log(orders);
+  
   return (
     <>
       <Typography variant="h5" className={classes.title}>
-        Order History
+        Appointment History
       </Typography>
       <Grid item container direction="row">
         <Grid item xs={12} sm={1} />
@@ -59,12 +60,13 @@ const Orders = (props) => {
             {orders ? (
               orders.length > 0 ? (
                 orders.map((order) => (
+                  console.log(order),
                   <Grid item xs={12} sm={4} key={order._id}>
                     <BookingCard order={order} role={role} />
                   </Grid>
                 ))
               ) : (
-                <p className={classes.para}>No Orders present.</p>
+                <p className={classes.para}>No Appointment present.</p>
               )
             ) : null}
           </Grid>

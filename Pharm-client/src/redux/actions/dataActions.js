@@ -306,6 +306,7 @@ export const getbooking = () => (dispatch) => {
   axios
     .get("/booking")
     .then((res) => {
+      console.log("Res_data",res.data);
       dispatch({
         type: SET_BOOKING,
         payload: res.data.books,

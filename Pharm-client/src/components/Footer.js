@@ -47,35 +47,6 @@ export default function Footer() {
     <Grid container direction="row" className={classes.container}>
       <Grid item xs={12} sm={4} className={classes.innerCont}>
         {authenticated ? (
-          <Grid container direction="row">
-            <Grid item xs={12} sm={6}>
-              <Typography variant="h5" component="p">
-                Company
-              </Typography>
-              <Typography variant="body1" component="p">
-                <br />
-                - About <br />
-                - Blog <br />
-                - Careers <br />
-                - Contact <br />
-                - Report Fraud <br />
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Typography variant="h5" component="p">
-                For You
-              </Typography>
-              <Typography variant="body1" component="p">
-                <br />
-                - Privacy <br />
-                - Terms <br />
-                - Security <br />
-                - Sitemap <br />
-                - Code of conduct <br />
-              </Typography>
-            </Grid>
-          </Grid>
-        ) : (
           <>
             <Typography variant="h4" component="p" style={{fontSize: 20, fontWeight: 550,}}>
               MEDISPHERE FOR BUSINESS
@@ -86,11 +57,31 @@ export default function Footer() {
             </Typography>
             <br />
             <Link to="/upload" style={{ textDecoration: 'none' }}>
-              <Button className={classes.buttonStyleOne} >GET STARTED</Button>
+              <Button className={classes.buttonStyleOne} style={{marginTop:'-10px'}} >PHARMACY</Button>
             </Link>
 
             <Link to="/addDoctor" style={{ textDecoration: 'none' }}>
-              <Button className={classes.buttonStyleOne} >Doctor GET STARTED</Button>
+              <Button className={classes.buttonStyleOne} style={{marginLeft: '30px', marginTop:'-10px'}} > DOCTOR </Button>
+            </Link>
+            
+          </>
+        
+        ) : (
+          <>
+            <Typography variant="h4" component="p" style={{fontSize: 20, fontWeight: 550,}}>
+              MEDISPHERE FOR BUSINESS
+            </Typography>
+            <Typography variant="body1" component="p" style={{fontSize: 15,}}>
+              Get more out of your business, without losing focus on what is
+              most important — delighting your customers
+            </Typography>
+            <br />
+            <Link to="/addPharmacy" style={{ textDecoration: 'none' }}>
+              <Button className={classes.buttonStyleOne} style={{marginTop:'-10px'}} >PHARMACY</Button>
+            </Link>
+
+            <Link to="/addDoctor" style={{ textDecoration: 'none' }}>
+              <Button className={classes.buttonStyleOne} style={{marginLeft: '30px', marginTop:'-10px'}} > DOCTOR </Button>
             </Link>
             
           </>

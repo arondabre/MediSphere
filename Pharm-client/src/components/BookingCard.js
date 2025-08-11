@@ -69,10 +69,12 @@ const useStyles = makeStyles((theme) => ({
 const BookingCard = (props) => {
   const order = props.order;
   const role = props.role;
+  
   const classes = useStyles();
   dayjs.extend(relativeTime);
   const dispatch = useDispatch();
   const handleCancel = () => {
+    
     const body = {
       status: "Cancelled",
     };
@@ -80,6 +82,7 @@ const BookingCard = (props) => {
   };
 
   const handleAccept = () => {
+
     const body = {
       status: "Accepted",
     };
@@ -96,11 +99,14 @@ const BookingCard = (props) => {
   const handleCompleted = () => {
     const body = {
       status: "Completed",
+      doctor: order.doctor.doctorId,
+      time : order.time,
     };
     dispatch(changeBookingStatus(order._id, body));
   };
 
   return (
+    console.log(order),
     <Paper
       style={{
         backgroundColor: "#faf7f7",
@@ -109,56 +115,34 @@ const BookingCard = (props) => {
       }}
       elevation={4}
     >
+      
       <div style={{ marginLeft: 20 }}>
         <Typography gutterBottom variant="body1" color="textSecondary">
-          OrderId - #{order._id}
+          BookingId - #{order._id}
         </Typography>
         <Typography gutterBottom variant="body1" color="textPrimary">
-          {role === "ROLE_USER" && `Ordered From - glen`}
-          {role === "ROLE_SELLER" &&
-            `Ordered By - , +91 `}
+          {role === "ROLE_USER" && `Booking of - ${order.doctor.name}`}
+          
         </Typography>
 
         <Typography gutterBottom variant="body1" color="textPrimary">
-          {role === "ROLE_DOCTOR" && `Ordered From - glen`}
+          {role === "ROLE_DOCTOR" && `Booking From - ${order.user.name}`}
           {role === "ROLE_DOCTOR" &&
-            `Ordered By - , +91 `}
+            `Patient Phone : - ${order.user.address.phoneNo}`}
         </Typography>
 
         {role === "ROLE_USER" && (
           <Typography gutterBottom variant="body1" color="textPrimary">
-            Call - +91
+            Call - {order.doctor.phone}
           </Typography>
         )}
 
-        {role === "ROLE_SELLER" && (
-          <Typography gutterBottom variant="body1" color="textPrimary">
-            Address -{" "}
-            {
-              order.doctor._id + ", " + order.user._id
-              // (`${order.user.address.aptName}, ${order.user.address.locality}`,
-              // `${order.user.address.street}`)
-            }
-          </Typography>
-
-        )}
-
-          {role === "ROLE_DOCTOR" && (
-          <Typography gutterBottom variant="body1" color="textPrimary">
-            Address -{" "}
-            {
-              order.doctor._id + ", " + order.user._id
-              // (`${order.user.address.aptName}, ${order.user.address.locality}`,
-              // `${order.user.address.street}`)
-            }
-          </Typography>
-
-        )}
+        
         <div style={{ margin: "10px 20px 10px 0px" }}>
           
         </div>
         <Typography gutterBottom variant="body1" color="textPrimary">
-          Ordered - {dayjs(order.createdAt).fromNow()}
+          Booked - {dayjs(order.createdAt).fromNow()}
         </Typography>
         <div style={{ display: "flex", flexDirection: "row" }}>
           <FiberManualRecordIcon
@@ -168,7 +152,7 @@ const BookingCard = (props) => {
             }
           />
           <Typography gutterBottom variant="body1" color="textPrimary">
-            Order {order.status}
+            Appointment {order.status}
           </Typography>
         </div>
         {role === "ROLE_USER" && order.status === "Placed" && (
@@ -177,17 +161,17 @@ const BookingCard = (props) => {
             onClick={handleCancel}
             disabled={order.status !== "Placed"}
           >
-            Cancel Order
+            Cancel Appointment
           </Button>
         )}
         {role === "ROLE_SELLER" && order.status === "Placed" && (
           <>
             <div style={{ display: "inline-block" }}>
               <Button className={classes.buttonCancel} onClick={handleCancel}>
-                Cancel Order
+                Cancel Appointment
               </Button>
               <Button className={classes.buttonAccept} onClick={handleAccept}>
-                Accept Order
+                Accept Appointment
               </Button>
             </div>
           </>
@@ -197,10 +181,10 @@ const BookingCard = (props) => {
           <>
             <div style={{ display: "inline-block" }}>
               <Button className={classes.buttonCancel} onClick={handleCancel}>
-                Cancel Order
+                Cancel Appointment
               </Button>
               <Button className={classes.buttonAccept} onClick={handleAccept}>
-                Accept Order
+                Accept Appointment
               </Button>
             </div>
           </>
@@ -211,21 +195,16 @@ const BookingCard = (props) => {
             Out For Delivery
           </Button>
         )}
-        {role === "ROLE_SELLER" && order.status === "Out For Delivery" && (
+        
+        {/* {role === "ROLE_SELLER" && order.status === "Out For Delivery" && (
           <Button className={classes.buttonAccept} onClick={handleCompleted}>
-            Order Completed
+            Appointment Completed
           </Button>
-        )}
-
+        )} */}
 
         {role === "ROLE_DOCTOR" && order.status === "Accepted" && (
-          <Button className={classes.buttonAccept} onClick={handleDelivery}>
-            Out For Delivery
-          </Button>
-        )}
-        {role === "ROLE_DOCTOR" && order.status === "Out For Delivery" && (
           <Button className={classes.buttonAccept} onClick={handleCompleted}>
-            Order Completed
+            Appointment Completed
           </Button>
         )}
         <br />

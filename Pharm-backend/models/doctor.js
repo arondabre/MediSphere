@@ -45,6 +45,10 @@ const doctorSchema = new Schema(
     ],
     account: { type: Schema.Types.ObjectId, required: true, ref: "Account" },
     items: [{ type: Schema.Types.ObjectId, ref: "Item" }],
+    time : {
+      type: [String]
+    },
+    Fees : {type : String},
   },
   { timestamps: true }
 );

@@ -258,5 +258,9 @@ export const addappointment = (bookingData) => (dispatch) => {
       });
       return res.data;
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      const errorMessage = err.response?.data?.message || "Failed to book appointment";
+      return { message: errorMessage };
+
+    });
 };

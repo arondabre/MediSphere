@@ -104,40 +104,7 @@ export default function SellerDashboard() {
   };
 
   return (
-    <>
       <PharmacyInfo {...sellerData} />
-      <Grid container direction="row" style={{ marginTop: 40 }}>
-        <Grid item xs={12} sm={1} />
-        <Grid item xs={12} sm={6}>
-          <Typography
-            gutterBottom
-            variant="h5"
-            style={{ textAlign: "center", marginBottom: 30 }}
-            noWrap
-          >
-            Add, Edit, Delete Items in your Pharma page &nbsp;&nbsp;
-            <span role="img" aria-label="burger" style={{ fontSize: 40 }}>
-              
-            </span>
-          </Typography>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <SearchBar page="items" handleSearch={handleSearch} />
-        </Grid>
-        <Grid item xs={12} sm={1} />
-        <PharmacyItems items={filteredItemsState} />
-      </Grid>
-      <Button fullWidth className={classes.button} onClick={handleOpen}>
-        Add Item
-      </Button>
-      <ItemDialog
-        open={open}
-        handleClose={handleClose}
-        handleSubmit={handleSubmit}
-        handleFileSelect={handleFileSelect}
-        inputs={inputs}
-        handleInputChange={handleInputChange}
-      />
-    </>
+      
   );
 }

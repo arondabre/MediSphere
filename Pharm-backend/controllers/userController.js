@@ -592,9 +592,10 @@ exports.getBooking = (req, res, next) => {
         return Doctor.findOne({ account: account._id });
     })
     .then((result) => {
-      console.log("res",result)
+     
       if (result instanceof User)
-        return Booking.find({ "user.userId": result._id }).sort({
+        
+        return Booking.find({ "user.userId": result.account}).sort({
           createdAt: -1,
         });
       if (result instanceof Doctor)
@@ -644,6 +645,9 @@ exports.postBookingStatus = (req, res, next) => {
     throw error;
   }
   const status = req.body.status;
+  const doctor_id = req.body.doctor;
+  const time = req.body.time;
+
   Booking.findById(orderId)
     .then((order) => {
       if (!order) {
@@ -654,8 +658,20 @@ exports.postBookingStatus = (req, res, next) => {
         throw error;
       }
 
-      Booking.status = status;
+      order.status = status;
+      
+      if (doctor_id) {
+        return Doctor.findByIdAndUpdate(
+          doctor_id,
+          { $pull: { time: time } },
+          { new: true }
+        ).then(() => order.save()); // save booking after doctor update
+      }
+
+
       return order.save();
+      
+
     })
     .then((updatedOrder) => {
       io.getIO().emit("orders", { action: "update", order: updatedOrder });

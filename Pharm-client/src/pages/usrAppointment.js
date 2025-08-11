@@ -35,6 +35,7 @@ const Orders = (props) => {
   const classes = useStyles();
 
   useEffect(() => {
+    
     dispatch(getbooking());
     const socket = openSocket(process.env.REACT_APP_SERVER_URL);
     socket.emit("add-user", { userId: _id });
@@ -55,6 +56,7 @@ const Orders = (props) => {
 
   
   return (
+    
     <>
       <Typography variant="h5" className={classes.title}>
         Booking History
@@ -64,6 +66,7 @@ const Orders = (props) => {
         <Grid item xs={12} sm={10}>
           <Grid container spacing={2}>
             {orders ? (
+              
               orders.length > 0 ? (
                 orders.map((order) => (
                   <Grid item xs={12} sm={4} key={order._id}>

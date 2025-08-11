@@ -125,7 +125,9 @@ router.post(
     body("street", "Street cannot be empty").trim().not().isEmpty(),
     body("locality", "Locality cannot be empty").trim().not().isEmpty(),
     body("aptName", "Apartment name cannot be empty").trim().not().isEmpty(),
-    body("zip", "Zipcode cannot be empty").trim().not().isEmpty()
+    body("zip", "Zipcode cannot be empty").trim().not().isEmpty(),
+    body("time", "Time cannot be empty").trim().not().isEmpty(),
+    body("Fees", "Fees cannot be empty").trim().not().isEmpty()
       .trim()
       .not()
       .isEmpty(),
