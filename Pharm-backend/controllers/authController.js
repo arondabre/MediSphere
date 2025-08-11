@@ -90,9 +90,9 @@ exports.signupUser = (req, res, next) => {
       client.sendEmail({
         "to": email,
         "from": "aronagnel@student.sfit.ac.in",
-        "subject": "Verify your Account on E-Pharm",
+        "subject": "Verify your Account on Medisphere",
         "HtmlBody": `
-                      <p>Please verify your email by clicking on the link below - E-Pharm</p>
+                      <p>Please verify your email by clicking on the link below - Medisphere</p>
                       <p>Click this <a href="http://localhost:3002/auth/verify/${token}">link</a> to verify your account.</p>
                     `,
       });
@@ -273,7 +273,7 @@ exports.signupSeller = (req, res, next) => {
       client.sendEmail({
         "to": email,
         "from": "aronagnel@student.sfit.ac.in",
-        "subject": "Verify your Account on E-PHARM",
+        "subject": "Verify your Account on Medisphere",
         "HtmlBody": `
                       <p>Please verify your email by clicking on the link below - Pharmacy</p>
                       <p>Click this <a href="http://localhost:3002/auth/verify/${token}">link</a> to verify your account.</p>
@@ -484,7 +484,7 @@ exports.signupDoctor = (req, res, next) => {
       client.sendEmail({
         "to": email,
         "from": "aronagnel@student.sfit.ac.in",
-        "subject": "Verify your Account on E-PHARM",
+        "subject": "Verify your Medisphere account",
         "HtmlBody": `
                       <p>Please verify your email by clicking on the link below - Pharmacy</p>
                       <p>Click this <a href="http://localhost:3002/auth/verify/${token}">link</a> to verify your account.</p>

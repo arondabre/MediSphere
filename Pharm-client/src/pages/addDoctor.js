@@ -258,7 +258,7 @@ const useStyles = makeStyles((theme) => ({
                     <TextField
                       id="locality"
                       name="locality"
-                      label="Locality"
+                      label="City"
                       className={classes.textField}
                       onChange={handleInputChange}
                       value={inputs.locality}

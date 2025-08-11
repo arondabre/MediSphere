@@ -239,7 +239,7 @@ const Cart = (props) => {
             <Grid item sm={3}>
               <Paper
                 className={classes.paper}
-                style={{ backgroundColor: "#faf7f7" }}
+                style={{ backgroundColor: "#faf7f7", marginBottom:20 }}
                 elevation={4}
               >
                 <div style={{ marginLeft: 20, marginRight: 20 }}>

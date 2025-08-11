@@ -160,40 +160,90 @@ const HomeStart = () => {
         </div>
 
         <Grid container spacing={3} className={classes.doctorGrid}>
-          {doctorList.length > 0 ? (
-            doctorList.map((doc) => (
-              
-              <Grid item xs={12} sm={6} md={4} key={doc._id}>
-                <Paper className={classes.doctorCard}>
-                  <Typography variant="h6">Dr. {doc.name}</Typography>
-                  <Typography variant="body2">Fees: ₹{doc.Fees || 0}</Typography>
-                  <Typography variant="body2">Speciality: {doc.tags}</Typography>
-                  <Typography variant="body2">Address: {doc.address.street}</Typography>
-                  <Typography variant="body2">Phone: {doc.address.phoneNo}</Typography>
+  {doctorList.length > 0 ? (
+    doctorList.map((doc) => (
+      <Grid item xs={12} sm={6} md={4} key={doc._id}>
+        <Paper
+          className={classes.doctorCard}
+          elevation={3}
+          style={{
+            padding: "16px",
+            borderRadius: "12px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            height: "100%"
+          }}
+        >
+          <div>
+            <Typography
+              variant="h6"
+              gutterBottom
+              style={{ fontWeight: 600 }}
+            >
+              Dr. {doc.name}
+            </Typography>
+            <Typography
+              variant="body1"
+              color="textSecondary"
+              gutterBottom
+            >
+              Fees:CAD = {doc.Fees || 0}
+            </Typography>
+            <Typography variant="body2" gutterBottom>
+              Speciality: {doc.tags}
+            </Typography>
+            <Typography variant="body2" gutterBottom>
+              Address: {doc.address.street}
+            </Typography>
+            <Typography variant="body2" gutterBottom>
+              Phone: {doc.address.phoneNo}
+            </Typography>
 
-                  <Select
-                    labelId={`specialist-label-${doc._id}`}
-                    value={selectedTime[doc._id] || ""}
-                    onChange={(e) => handleTimeChange(doc._id, e.target.value)}
-                  >
-                    <MenuItem value="9:00AM">9:00AM</MenuItem>
-                    <MenuItem value="9:15AM">9:15AM</MenuItem>
-                    <MenuItem value="9:30AM">9:30AM</MenuItem>
-                    <MenuItem value="9:45AM">9:45AM</MenuItem>
-                  </Select>
+            <Select
+  labelId={`specialist-label-${doc._id}`}
+  value={selectedTime[doc._id] || ""}
+  onChange={(e) => handleTimeChange(doc._id, e.target.value)}
+  variant="outlined"
+  style={{
+    marginTop: 12,
+    minWidth: "100%",
+    borderRadius: "8px",
+    fontSize: "0.9rem",
+    height: 36,              // total box height
+    padding: "0 8px"         // less vertical padding
+  }}
+  MenuProps={{
+    PaperProps: {
+      style: {
+        maxHeight: 200 // optional: smaller dropdown list
+      }
+    }
+  }}
+>
+  <MenuItem value="9:00AM">9:00AM</MenuItem>
+  <MenuItem value="9:15AM">9:15AM</MenuItem>
+  <MenuItem value="9:30AM">9:30AM</MenuItem>
+  <MenuItem value="9:45AM">9:45AM</MenuItem>
+</Select>
+          </div>
 
-                  {/* <Typography variant="body2">Tags: {doc.tags}</Typography> */}
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    style={{ marginTop: 10 }}
-                    onClick={() => handleBookDoctor(doc)}
-                  >
-                    Book
-                  </Button>
-                </Paper>
-              </Grid>
-            ))
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            style={{
+              marginTop: 16,
+              borderRadius: "8px",
+              fontWeight: 600
+            }}
+            onClick={() => handleBookDoctor(doc)}
+          >
+            Book Appointment
+          </Button>
+        </Paper>
+      </Grid>
+    ))
           ) : searchInitiated ? (
             <Grid item xs={12}>
               <Typography>No doctors found for selected specialty.</Typography>

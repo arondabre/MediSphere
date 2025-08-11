@@ -1,113 +1,85 @@
 import React from "react";
-//redux
 import { useSelector } from "react-redux";
-
-//material-ui
-import makeStyles from "@material-ui/core/styles/makeStyles";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
+import { Typography, Grid, Paper } from "@material-ui/core";
 
 import Spinner from "../util/spinner/spinner";
 import SwipeableImages from "./SwipeableImages";
 
-const useStyles = makeStyles({
-  borderBottom: {
-    borderBottom: "2px solid #000",
-    position: "absolute",
-    top: "25.5%",
-    left: "6.5%",
-    bottom: 0,
-    height: "40%",
-    width: "44%",
+const useStyles = makeStyles((theme) => ({
+  boxWrapper: {
+    border: "2px solid #000",
+    borderRadius: 12,
+    padding: theme.spacing(3),
+    backgroundColor: "#fff",
+    maxWidth: 2800, // limit width so it doesn't stretch full page
+    margin: "auto", // centers the Paper in its parent
   },
-  borderLeft: {
-    borderLeft: "2px solid #000",
-    position: "absolute",
-    top: "25.5%",
-    left: "6.5%",
-    bottom: 0,
-    height: "40%",
+  pharmacyTitle: {
+    fontWeight: 600,
+    marginBottom: theme.spacing(1),
   },
-  para: {
-    fontSize: "x-large",
-    marginLeft: "32%",
+  pharmacyInfo: {
+    marginBottom: theme.spacing(1),
   },
-});
+}));
 
 function Pharmacy(props) {
   const classes = useStyles();
   const { loading } = useSelector((state) => state.data);
-  const {
-    name,
-    imageUrl,
-    tags,
-    payment,
-    address,
-  } = props;
-  let paymentString;
-  let phoneNo;
-  let addressString;
+  const { name, imageUrl, tags, payment, address } = props;
+
+  let paymentString = "";
+  let phoneNo = "";
+  let addressString = "";
 
   if (address) {
     phoneNo = address.phoneNo;
     addressString = `${address.aptName}, ${address.locality}, ${address.street}`;
   }
 
-  if (payment ? payment.length === 1 : null)
+  if (payment?.length === 1) {
     paymentString = `Accepts ${payment[0].toLowerCase()} payment`;
-
-  if (payment ? payment.length === 2 : null)
+  } else if (payment?.length === 2) {
     paymentString = `Accepts ${payment[0].toLowerCase()} & ${payment[1].toLowerCase()} payments`;
+  }
 
-  return (
-    <>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          <Grid container direction="row">
-            <Grid item xs={false} sm={1} />
-            <Grid item xs={12} sm={6} style={{ marginTop: 120 }}>
-              <Typography
-                gutterBottom
-                variant="h4"
-                component="h2"
-                style={{ fontStyle: "bold" }}
-              >
-                {name}
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                {tags}
-              </Typography>
-              <Typography variant="body2" color="textPrimary">
-                {paymentString}
-              </Typography>
-              <br />
-              <Typography variant="body2" color="textPrimary">
-                Address: {addressString}
-              </Typography>
-              <Typography variant="body2" color="textPrimary">
-                Call: +91 {phoneNo}
-              </Typography>
-              <Typography variant="body2" color="textPrimary">
-                Open-In Timing: 1pm to 12am
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={4} style={{ marginTop: 34 }}>
-              {imageUrl ? (
-                <SwipeableImages images={imageUrl} type="Pharmacy" />
-              ) : null}
-            </Grid>
-            <div className={classes.borderLeft}></div>
-            <div className={classes.borderBottom}></div>
-            <Grid item xs={false} sm={1} />
+  return loading ? (
+    <Spinner />
+  ) : (
+    <Grid container justifyContent="center" style={{ padding: 20 }}>
+      <Paper className={classes.boxWrapper}>
+        <Grid container spacing={4} alignItems="center">
+          {/* Left side: info */}
+          <Grid item xs={12} sm={6}>
+            <Typography variant="h4" className={classes.pharmacyTitle}>
+              {name}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" className={classes.pharmacyInfo}>
+              {tags}
+            </Typography>
+            <Typography variant="body2" className={classes.pharmacyInfo}>
+              {paymentString}
+            </Typography>
+            <Typography variant="body2" className={classes.pharmacyInfo}>
+              Address: {addressString}
+            </Typography>
+            <Typography variant="body2" className={classes.pharmacyInfo}>
+              Call: {phoneNo}
+            </Typography>
+            <Typography variant="body2">
+              
+            </Typography>
           </Grid>
-        </>
-      )}
-    </>
+
+          {/* Right side: image */}
+          <Grid item xs={12} sm={6}>
+            {imageUrl && <SwipeableImages images={imageUrl} type="Pharmacy" />}
+          </Grid>
+        </Grid>
+      </Paper>
+    </Grid>
   );
 }
 
 export default React.memo(Pharmacy);
-
-

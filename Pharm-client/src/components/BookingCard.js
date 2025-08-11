@@ -127,15 +127,24 @@ const BookingCard = (props) => {
 
         <Typography gutterBottom variant="body1" color="textPrimary">
           {role === "ROLE_DOCTOR" && `Booking From - ${order.user.name}`}
-          {role === "ROLE_DOCTOR" &&
-            `Patient Phone : - ${order.user.address.phoneNo}`}
+        </Typography>
+        <Typography gutterBottom variant="body1" color="textPrimary">
+          {role === "ROLE_DOCTOR" && `Patient Phone : - ${order.user.address.phoneNo}`}</Typography>
+          <Typography gutterBottom variant="body1" color="textPrimary">
+          {role === "ROLE_DOCTOR" && `Appointment Time : - ${order.time}`}
         </Typography>
 
         {role === "ROLE_USER" && (
-          <Typography gutterBottom variant="body1" color="textPrimary">
-            Call - {order.doctor.phone}
-          </Typography>
-        )}
+  <>
+    <Typography gutterBottom variant="body1" color="textPrimary">
+      Call - {order.doctor.phone}
+    </Typography>
+    <Typography gutterBottom variant="body1" color="textPrimary">
+      Time - {order.time}
+    </Typography>
+  </>
+)}
+
 
         
         <div style={{ margin: "10px 20px 10px 0px" }}>
