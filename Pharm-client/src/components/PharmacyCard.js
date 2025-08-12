@@ -13,17 +13,20 @@ import SwipeableImages from "./SwipeableImages";
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    borderRadius: 16,
-    overflow: "hidden",
-    border: "1px solid #e0e0e0",
-    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.05)",
-    transition: "all 0.3s ease-in-out",
-    backgroundColor: "#ffffff",
-    "&:hover": {
-      boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
-      transform: "translateY(-5px)",
-    },
-  },
+  borderRadius: 20,
+  overflow: "hidden",
+  border: "1px solid rgba(95, 93, 93, 0.2)",
+  background: "linear-gradient(135deg, rgba(255,255,255,0.9), rgba(245,245,245,0.8))",
+  backdropFilter: "blur(8px)",
+  boxShadow: "0 4px 20px rgba(0, 0, 0, 0.05)",
+  transition: "all 0.3s ease-in-out",
+  "&:hover": {
+    boxShadow: "0 12px 35px rgba(0, 0, 0, 0.15)",
+    transform: "translateY(-6px) scale(1.02)",
+    borderColor: "rgba(46, 125, 50, 0.4)", // green glow
+  },marginBottom:20
+},
+
   cardContent: {
     padding: theme.spacing(3),
   },

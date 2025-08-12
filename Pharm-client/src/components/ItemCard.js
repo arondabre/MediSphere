@@ -26,25 +26,61 @@ import { addToCart } from "../redux/actions/dataActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+  background: "linear-gradient(145deg, #ffffff, #f7f9fc)",
+  borderRadius: 16,
+  boxShadow: "0 6px 20px rgba(0, 0, 0, 0.08)",
+  overflow: "hidden",
+  transition: "transform 0.3s ease, box-shadow 0.3s ease",
+  "&:hover": {
+    transform: "translateY(-4px)",
+    boxShadow: "0 10px 25px rgba(0, 0, 0, 0.12)",
   },
-  details: {
-    display: "flex",
-    flexDirection: "column",
+  marginBottom:20
+},
+
+details: {
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+  padding: theme.spacing(2.5),
+  flex: 1,
+},
+
+content: {
+  flex: "1 0 auto",
+  fontFamily: "'Segoe UI', sans-serif",
+  color: "#333",
+  fontSize: "1rem",
+  lineHeight: 1.5,
+},
+
+cover: {
+  height: 180,
+  width: "45%",
+  objectFit: "cover",
+  borderTopLeftRadius: 16,
+  borderBottomLeftRadius: 16,
+  transition: "transform 0.3s ease",
+  "&:hover": {
+    transform: "scale(1.05)",
   },
-  content: {
-    flex: "1 0 auto",
+},
+
+snackbar: {
+  width: "100%",
+  "& > * + *": {
+    marginTop: theme.spacing(2),
   },
-  cover: {
-    height: "180",
-    width: "60%",
+  "& .MuiSnackbarContent-root": {
+    backgroundColor: "#1f3c88",
+    color: "#fff",
+    fontWeight: 500,
+    borderRadius: 8,
   },
-  snackbar: {
-    width: "100%",
-    "& > * + *": {
-      marginTop: theme.spacing(2),
-    },
-  },
+},
 }));
 
 function Alert(props) {
@@ -153,22 +189,38 @@ export default function ItemCard(props) {
               </MyButton>
             </div>
           ) : authenticated ? (
-            <Button
-              color="secondary"
-              style={{
-                color: "#000",
-                width: "60%",
-                marginLeft: "20%",
-                marginBottom: "10%",
-              }}
-              onClick={() => {
-                handleCart();
-                handleSnackBar();
-              }}
-              variant="contained"
-            >
-              Add to Cart
-            </Button>
+           <Button
+  onClick={() => {
+    handleCart();
+    handleSnackBar();
+  }}
+  variant="contained"
+  color="primary"
+  style={{
+    backgroundColor: "#2e7d32",
+    color: "#fff",
+    fontWeight: 600,
+    fontSize:25,
+    borderRadius: 8,
+    padding: "5px 4px",
+    width: "60%",
+    marginLeft: "5%",
+    marginBottom: "10%",
+    textTransform: "none",
+    boxShadow: "0 3px 8px rgba(0,0,0,0.15)",
+    transition: "background-color 0.3s ease, transform 0.2s ease",
+  }}
+  onMouseOver={(e) => {
+    e.currentTarget.style.backgroundColor = "#1976d2";
+    e.currentTarget.style.transform = "scale(1.02)";
+  }}
+  onMouseOut={(e) => {
+    e.currentTarget.style.backgroundColor = "#2e7d32";
+    e.currentTarget.style.transform = "scale(1)";
+  }}
+>
+  🛒
+</Button>
           ) : (
             <Link to="/login">
               <Button

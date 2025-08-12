@@ -8,20 +8,63 @@ import SwipeableImages from "./SwipeableImages";
 
 const useStyles = makeStyles((theme) => ({
   boxWrapper: {
-    border: "2px solid #000",
-    borderRadius: 12,
-    padding: theme.spacing(3),
-    backgroundColor: "#fff",
-    maxWidth: 2800, // limit width so it doesn't stretch full page
-    margin: "auto", // centers the Paper in its parent
+  borderRadius: 16,
+  padding: theme.spacing(4),
+  width: "100%", // full horizontal stretch
+  maxWidth: "100%",
+  margin: "auto",
+  background: "linear-gradient(135deg, #ffffff 0%, #f5f9ff 50%, #e8f0ff 100%)",
+  boxShadow: "0 10px 25px rgba(0, 0, 0, 0.12), 0 4px 10px rgba(0, 0, 0, 0.06)",
+  border: "1px solid rgba(255, 255, 255, 0.2)",
+  backdropFilter: "blur(8px)", // glassmorphic touch
+  transition: "all 0.35s ease",
+
+  "&:hover": {
+    transform: "translateY(-6px) scale(1.01)",
+    boxShadow: "0 14px 32px rgba(0, 0, 0, 0.18), 0 6px 14px rgba(0, 0, 0, 0.1)",
+    background: "linear-gradient(135deg, #fdfdfd 0%, #f5faff 50%, #e4efff 100%)",
   },
+
+  [theme.breakpoints.down("sm")]: {
+    padding: theme.spacing(2),
+  },
+},
   pharmacyTitle: {
-    fontWeight: 600,
-    marginBottom: theme.spacing(1),
+  fontWeight: 700,
+  marginBottom: theme.spacing(1),
+  fontSize: "1.8rem",
+  fontFamily: "'Poppins', sans-serif",
+  letterSpacing: "0.5px",
+  color: "#1f3c88", // deep futuristic blue
+  background: "linear-gradient(90deg, #1f3c88, #4a90e2)",
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+  textShadow: "0 2px 6px rgba(0,0,0,0.1)",
+  transition: "transform 0.3s ease, text-shadow 0.3s ease",
+
+  "&:hover": {
+    transform: "scale(1.03)",
+    textShadow: "0 4px 12px rgba(0,0,0,0.15)",
   },
-  pharmacyInfo: {
-    marginBottom: theme.spacing(1),
+},
+
+pharmacyInfo: {
+  marginBottom: theme.spacing(1),
+  fontSize: "1rem",
+  lineHeight: 1.6,
+  color: "#4a4a4a",
+  fontFamily: "'Segoe UI', sans-serif",
+  background: "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(74,144,226,0.08) 100%)",
+  padding: theme.spacing(1.5),
+  borderRadius: 8,
+  boxShadow: "0 2px 6px rgba(0,0,0,0.05)",
+  transition: "background 0.3s ease, box-shadow 0.3s ease",
+
+  "&:hover": {
+    background: "linear-gradient(90deg, rgba(74,144,226,0.15) 0%, rgba(255,255,255,0) 100%)",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
   },
+},
 }));
 
 function Pharmacy(props) {

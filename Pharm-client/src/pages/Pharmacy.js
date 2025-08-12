@@ -17,47 +17,91 @@ import SearchBar from "../components/SearchBar";
 import { fetchPharmacy } from "../redux/actions/dataActions";
 
 const useStyles = makeStyles((theme) => ({
-  
   container: {
-    backgroundColor: "#e0f2f1",
-    marginTop: 80,
-    height: "60vh",
-    textAlign: "center",
-  },
-  typography: {
-        fontSize: 20,
-        fontFamily:['-apple-system']
-  },
+  backgroundColor: "#d5d7d8ff",
+  marginTop: theme.spacing(6),
+  padding: theme.spacing(3),
+  borderRadius: 12,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: theme.spacing(2),
+},
+pharmacyCard: {
+  display: "flex",
+  alignItems: "center",
+  backgroundColor: "#fff",
+  borderRadius: 12,
+  boxShadow: "0px 4px 15px rgba(0,0,0,0.1)",
+  padding: theme.spacing(2),
+  marginTop: theme.spacing(4),
+  maxWidth: "900px",
+  margin: "0 auto",
+},
 
+pharmacyImage: {
+  width: 200,
+  height: 200,
+  borderRadius: 20,
+  objectFit: "cover",
+  marginRight: theme.spacing(3),
+},
+  typography: {
+    fontSize: 18,
+    fontFamily: "'Segoe UI', sans-serif",
+    color: "#000000ff",
+  },
   typographys: {
-    fontSize: 30,
-    fontFamily:['Arial']
+    fontSize: 32,
+    fontWeight: "bold",
+    fontFamily: "'Poppins', sans-serif",
+    color: "#2e7d32",
   },
   innerCont: {
-    margin: "90px 50px 50px 50px",
+    padding: theme.spacing(3),
+    
   },
   resources: {
     margin: "60px 40px 10px 40px",
-    fontsize:"90",
+    fontSize: "1.2rem",
   },
   buttonStyleOne: {
     color: "white",
     backgroundColor: theme.palette.primary.main,
+    borderRadius: 8,
+    padding: "10px 20px",
+    fontWeight: "bold",
     "&:hover": {
-      backgroundColor: "#5a5c5a",
+      backgroundColor: "#1565c0",
     },
   },
   buttonStyleTwo: {
     color: "white",
     backgroundColor: theme.palette.primary.main,
-    marginLeft: 'auto',
-    marginTop: 60,
-
+    marginTop: 40,
+    borderRadius: 8,
+    padding: "15px 25px",
+    fontSize: 16,
+    fontWeight: "bold",
+    boxShadow: "0px 4px 8px rgba(0,0,0,0.2)",
     "&:hover": {
-      backgroundColor: "#5a5c5a",
+      backgroundColor: "#1565c0",
     },
   },
+  headingSection: {
+    textAlign: "center",
+    padding: theme.spacing(3),
+    backgroundColor: "#ffffff",
+    borderRadius: 12,
+    boxShadow: "0px 2px 10px rgba(0,0,0,0.05)",
+    marginBottom: theme.spacing(3),
+  },
+  itemsContainer: {
+  marginBottom: theme.spacing(8), // spacing before footer
+
+}
 }));
+
 
 
 
@@ -127,26 +171,17 @@ export default function Pharmacy(props) {
         <>
           <PharmacyInfo {...Pharmacy} />
 
-          <Grid container direction="row" className={classes.container}>
-            <Grid item xs={12} sm={4} className={classes.innerCont}>
-            </Grid>
-            <Grid item xs={12} sm={3} className={classes.innerCont}>
-              <Typography variant="h4" component="p" style={{marginTop: 30}} className={classes.typographys}>
-                Ask Your Pharmacist,
-                <br/>
-                Not the Internet 
-              </Typography>
-              <Typography variant="body1" component="p" style={{marginTop: 10}} className={classes.typography} align="center" >
-                We have made our system simple as we can ,
-                <br/>
-                you can take picture of precription and place the Order
-              </Typography>
-              <Link to="/photo">
-                <Button className={classes.buttonStyleTwo}  style={{ width: 300, padding: 15}}>UPLOAD YOUR PRECRIPTION</Button>
-              </Link>
-            </Grid>
-          </Grid>
-
+          <Grid container className={classes.container}>
+  <Typography variant="h6" className={classes.typographys}>
+    Ask Your Pharmacist, Not the Internet
+  </Typography>
+  <Typography variant="body2" className={classes.typography}style={{marginLeft:20}}>
+    Take a picture of your prescription and place your order.
+  </Typography>
+  <Link to="/photo">
+    <Button className={classes.buttonStyleTwo} style={{marginLeft:40, marginTop:5}}>Upload Prescription</Button>
+  </Link>
+</Grid>
           <Grid container direction="row" style={{ marginTop: 40 }}>
             <Grid
               item
@@ -180,7 +215,7 @@ export default function Pharmacy(props) {
               item
               xs={12}
               sm={4}
-              style={{ marginTop: 20, paddingLeft: 40 }}
+              style={{ marginTop: 20, paddingLeft: 40 ,marginBottom:30}}
             >
               
               <SearchBar page="items" handleSearch={handleSearch} />

@@ -127,7 +127,7 @@ export default function SellerDashboard() {
         <Grid item xs={12} sm={1} />
         <PharmacyItems items={filteredItemsState} />
       </Grid>
-      <Button fullWidth className={classes.button} onClick={handleOpen}>
+      <Button fullWidth className={classes.button} onClick={handleOpen}style={{marginBottom:20}}>
         Add Item
       </Button>
       <ItemDialog

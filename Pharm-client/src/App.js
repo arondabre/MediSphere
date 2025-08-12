@@ -78,13 +78,14 @@ if (token) {
 
 function App() {
   return (
-
     <MuiThemeProvider theme={theme}>
       <Provider store={store}>
         <Router>
-          <AppBar />
-          <ScrollToTop />
-          <Switch>
+          <div className="appWrapper">
+            <AppBar />
+            <ScrollToTop />
+            <div className="mainContent">
+              <Switch>
             <Route exact path="/" component={home} />
             <AuthRoute exact path="/login" component={login} />
             <AuthRoute exact path="/register" component={signup} />
@@ -122,8 +123,10 @@ function App() {
             <UserRoute exact path="/orders" component={orders} />
             <SellerRoute exact path="/seller/orders" component={orders} />
             <Route component={error404} />
-          </Switch>
-          <Footer />
+           </Switch>
+            </div>
+            <Footer />
+          </div>
         </Router>
       </Provider>
     </MuiThemeProvider>

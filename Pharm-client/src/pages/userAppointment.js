@@ -164,84 +164,76 @@ const HomeStart = () => {
     doctorList.map((doc) => (
       <Grid item xs={12} sm={6} md={4} key={doc._id}>
         <Paper
-          className={classes.doctorCard}
-          elevation={3}
-          style={{
-            padding: "16px",
-            borderRadius: "12px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            height: "100%"
-          }}
-        >
-          <div>
-            <Typography
-              variant="h6"
-              gutterBottom
-              style={{ fontWeight: 600 }}
-            >
-              Dr. {doc.name}
-            </Typography>
-            <Typography
-              variant="body1"
-              color="textSecondary"
-              gutterBottom
-            >
-              Fees:CAD = {doc.Fees || 0}
-            </Typography>
-            <Typography variant="body2" gutterBottom>
-              Speciality: {doc.tags}
-            </Typography>
-            <Typography variant="body2" gutterBottom>
-              Address: {doc.address.street}
-            </Typography>
-            <Typography variant="body2" gutterBottom>
-              Phone: {doc.address.phoneNo}
-            </Typography>
-
-            <Select
-  labelId={`specialist-label-${doc._id}`}
-  value={selectedTime[doc._id] || ""}
-  onChange={(e) => handleTimeChange(doc._id, e.target.value)}
-  variant="outlined"
+  className={classes.doctorCard}
+  elevation={3}
   style={{
-    marginTop: 12,
-    minWidth: "100%",
-    borderRadius: "8px",
-    fontSize: "0.9rem",
-    height: 36,              // total box height
-    padding: "0 8px"         // less vertical padding
-  }}
-  MenuProps={{
-    PaperProps: {
-      style: {
-        maxHeight: 200 // optional: smaller dropdown list
-      }
-    }
+    padding: "16px",
+    borderRadius: "12px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    height: "100%"
   }}
 >
-  <MenuItem value="9:00AM">9:00AM</MenuItem>
-  <MenuItem value="9:15AM">9:15AM</MenuItem>
-  <MenuItem value="9:30AM">9:30AM</MenuItem>
-  <MenuItem value="9:45AM">9:45AM</MenuItem>
-</Select>
-          </div>
+  {/* Top Section - Info */}
+  <div style={{ flexGrow: 1 }}>
+    <Typography variant="h6" gutterBottom style={{ fontWeight: 600 }}>
+      Dr. {doc.name}
+    </Typography>
+    <Typography variant="body1" color="textSecondary" gutterBottom>
+      Fees: CAD {doc.Fees || 0}
+    </Typography>
+    <Typography variant="body2" gutterBottom>
+      Speciality: {doc.tags}
+    </Typography>
+    <Typography variant="body2" gutterBottom>
+      Address: {doc.address.street}
+    </Typography>
+    <Typography variant="body2" gutterBottom>
+      Phone: {doc.address.phoneNo}
+    </Typography>
+  </div>
 
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            style={{
-              marginTop: 16,
-              borderRadius: "8px",
-              fontWeight: 600
-            }}
-            onClick={() => handleBookDoctor(doc)}
-          >
-            Book Appointment
-          </Button>
-        </Paper>
+  {/* Bottom Section - Actions */}
+  <div style={{ marginTop: "auto" }}>
+    <div style={{ height: "48px", display: "flex", alignItems: "center" }}>
+      <Select
+        labelId={`specialist-label-${doc._id}`}
+        value={selectedTime[doc._id] || ""}
+        onChange={(e) => handleTimeChange(doc._id, e.target.value)}
+        variant="outlined"
+        style={{
+          minWidth: "100%",
+          borderRadius: "8px",
+          fontSize: "0.9rem",
+          height: 36
+        }}
+        MenuProps={{
+          PaperProps: { style: { maxHeight: 200 } }
+        }}
+      >
+        <MenuItem value="9:00AM">9:00AM</MenuItem>
+        <MenuItem value="9:15AM">9:15AM</MenuItem>
+        <MenuItem value="9:30AM">9:30AM</MenuItem>
+        <MenuItem value="9:45AM">9:45AM</MenuItem>
+      </Select>
+    </div>
+
+    <Button
+      variant="contained"
+      color="primary"
+      fullWidth
+      style={{
+        marginTop: 16,
+        borderRadius: "8px",
+        fontWeight: 600
+      }}
+      onClick={() => handleBookDoctor(doc)}
+    >
+      Book Appointment
+    </Button>
+  </div>
+</Paper>
       </Grid>
     ))
           ) : searchInitiated ? (
