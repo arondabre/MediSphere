@@ -72,6 +72,18 @@ const OrderCard = (props) => {
   const classes = useStyles();
   dayjs.extend(relativeTime);
   const dispatch = useDispatch();
+if (!order || 
+      (role === "ROLE_USER" && !order.seller) || 
+      (role === "ROLE_SELLER" && !order.user)) {
+    return (
+      <Typography variant="body1" color="textSecondary" style={{ padding: 16 }}>
+        Loading order details...
+      </Typography>
+    );
+  }
+  if (!order || !order.seller) {
+  return <Typography>Loading order details...</Typography>;
+}
 
   const handleCancel = () => {
     const body = {

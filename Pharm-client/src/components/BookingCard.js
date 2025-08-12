@@ -70,9 +70,17 @@ const BookingCard = (props) => {
   const order = props.order;
   const role = props.role;
   
+  
   const classes = useStyles();
   dayjs.extend(relativeTime);
   const dispatch = useDispatch();
+  if (!order || (role === "ROLE_USER" && !order.doctor) || (role === "ROLE_DOCTOR" && !order.user)) {
+    return (
+      <Typography variant="body1" color="textSecondary" style={{ padding: 16 }}>
+        Loading booking details...
+      </Typography>
+    );
+  }
   const handleCancel = () => {
     
     const body = {
@@ -104,6 +112,7 @@ const BookingCard = (props) => {
     };
     dispatch(changeBookingStatus(order._id, body));
   };
+
 
   return (
     console.log(order),

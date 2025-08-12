@@ -12,23 +12,49 @@ import Button from "@material-ui/core/Button";
 
 import { logoutAction } from "../redux/actions/authActions";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   appBar: {
-    backgroundColor: "#3783bdff",
-    marginBottom: 0,
+    background: "linear-gradient(90deg, #499ceeff, #264cd4ff)",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+    padding: "4px 0",
   },
-  title: { flex: 1, marginLeft: 30,marginBottom:10,marginTop: 10, color: "BLACK" },
+  title: {
+    flex: 1,
+    display: "flex",
+    alignItems: "center",
+    textDecoration: "none",
+  },
+  brandButton: {
+    fontWeight: 700,
+    fontSize: 24,
+    borderRadius: 8,
+    backgroundColor: "rgba(255,255,255,0.2)",
+    color: "#fff",
+    padding: "4px 12px",
+    transition: "all 0.3s ease",
+    "&:hover": {
+      backgroundColor: "rgba(255,255,255,0.35)",
+      transform: "translateY(-1px)",
+    },
+  },
   buttonStyles: {
-    color: "black",
-    margin: "0 6px 0",
-    display: "inline-block",
+    color: "#fff",
+    margin: "0 6px",
+    transition: "all 0.3s ease",
+    "&:hover": {
+      backgroundColor: "rgba(255,255,255,0.15)",
+    },
   },
   buttons: {
-    marginRight: 40,
+    marginRight: 20,
+    display: "flex",
+    alignItems: "center",
   },
-  name: {
-    fontStyle: "bold",
-    fontSize: 30,
+  welcomeText: {
+    fontSize: 16,
+    fontWeight: 500,
+    color: "#fff",
+    marginRight: 12,
   },
 }));
 
