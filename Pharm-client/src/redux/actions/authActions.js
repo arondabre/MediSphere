@@ -11,7 +11,8 @@ import {
   SET_ERRORS_SIGNUP_SELLER,
   SET_ERRORS_SIGNUP_PRE,
   SET_DOCTOR_LIST,
-  BOOK_APPOINTMENT_SUCCESS
+  BOOK_APPOINTMENT_SUCCESS,
+  PRE_SUCCESS
 } from "../types";
 
 import axios from "../../util/axios";
@@ -154,12 +155,13 @@ export const PreFinal = (data, history,) => (dispatch) => {
 
   dispatch({ type: LOADING_UI });
   axios
-    .post("/auth/prescription", data)
+    .post("/auth/Prescription", data)
     .then((res) => {
       dispatch({
-        type: SIGNUP_SUCCESS,
+        type: PRE_SUCCESS,
       });
       dispatch({ type: CLEAR_ERRORS });
+      console.log("sdfsd",res);
       history.push("/login");
     })
     .catch((err) => {

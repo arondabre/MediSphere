@@ -12,7 +12,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Pharmacyinfo from "../components/Pharmacyinfo";
 import Pharmacyitems from "../components/Pharmacyitems";
 import url from "socket.io-client/lib/url";
-
+import { PreFinal } from "../redux/actions/authActions";
+import { useHistory } from "react-router";
 
 //import {ToastContainer,toast} from "react-toastify";
 //import "react-toastify/dist/ReactTostify.css";
@@ -24,6 +25,8 @@ const Pre = () => {
   const Pharmacy = useSelector((state) => state.data.Pharmacy);
   const [image, setImage ] = useState("");
   const [ url, setUrl ] = useState("");
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleImage=(e)=>{
     const file=e.target.files[0];
@@ -57,20 +60,7 @@ const Pre = () => {
       Zip:inputs.Zip,
       Phone:inputs.Phone,
     };
-    
-    const {data} = await axios.post('/auth/Prescription',newUserData)
-
-    //e.preventDefault();
-    //try{
-      
-      //const {data} = await axios.post('/auth/Prescription',newUserData)
-      
-    //}catch(error){
-
-     // console.log(error)
-
-    //} 
-
+    dispatch(PreFinal(newUserData,history));
   }
 
 

@@ -49,6 +49,8 @@ const doctorSchema = new Schema(
       type: [String]
     },
     Fees : {type : String},
+    time_app :{type: String},
+    
   },
   { timestamps: true }
 );

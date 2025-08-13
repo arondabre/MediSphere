@@ -97,6 +97,7 @@ router.post("/images-test", authController.imagesTest);
 
 
 router.post("/Prescription",authController.Prescription);
+
 router.post("/Extract",authController.Extract);
 
 router.post("/images-test", authController.imagesTest);

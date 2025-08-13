@@ -306,7 +306,7 @@ exports.imagesTest = (req, res, next) => {
 
 
 // precsription
-exports.Prescription = async (req, res, next) => {
+exports.Prescription = (req, res, next) => {
 
   const name = req.body.Doc;
   const image = req.body.img;
@@ -323,7 +323,7 @@ exports.Prescription = async (req, res, next) => {
 
   
   try{
-    const result = await cloudinary.uploader.upload(image,{
+    const result = cloudinary.uploader.upload(image,{
 
       folder: "precriptions",
       width: 300,
@@ -355,7 +355,8 @@ exports.Prescription = async (req, res, next) => {
                   <p>Click this <a href=${result.secure_url}>link</a> for preciption.</p>
                   `,
     });
-    res.status(201).json({
+    console.log("Sending success response to frontend...");
+    res.status(200).json({
       message:
         "Precription Uploaded",
       //sellerId: savedSeller._id,
@@ -429,7 +430,7 @@ exports.signupDoctor = (req, res, next) => {
   const lng = req.body.lng;
   const locality = req.body.locality;
   const zip = req.body.zip;
-  const time = req.body.time;
+  const time_app = req.body.time;
   const Fees = req.body.Fees;
 
   let token;
@@ -476,6 +477,7 @@ exports.signupDoctor = (req, res, next) => {
         },
         time : [],
         Fees : Fees,
+        time_app : time_app
       });
       return doctor.save();
     })
