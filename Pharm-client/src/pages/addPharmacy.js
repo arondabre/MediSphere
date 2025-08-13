@@ -246,7 +246,7 @@ const useStyles = makeStyles((theme) => ({
                       value={inputs.zip}
                       helperText={zipError}
                       error={zipError ? true : false}
-                      type="number"
+                      type="text"
                       fullWidth
                       required
                     />
@@ -369,7 +369,7 @@ const useStyles = makeStyles((theme) => ({
                     className={classes.small}
                     style={{ marginLeft: "260px" }}
                   >
-                    Partner with E-Pharma and scale your business
+                    Partner with MEDISPHERE and scale your business
                   </small>
                 </form>
               </Grid>

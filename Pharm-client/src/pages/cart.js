@@ -215,7 +215,7 @@ const Cart = (props) => {
                       value={inputs.zip}
                       helperText={zipError}
                       error={zipError ? true : false}
-                      type="number"
+                      type="text"
                       fullWidth
                       required
                     />

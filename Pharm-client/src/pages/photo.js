@@ -1,33 +1,125 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-
+import { PreFinal } from "../redux/actions/authActions";
 import useForm from "../hooks/forms";
-import '../App.css';
-
-import axios from "../util/axios";
+import { useHistory } from "react-router-dom"; // <-- add this
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Pharmacyinfo from "../components/Pharmacyinfo";
-import Pharmacyitems from "../components/Pharmacyitems";
-import url from "socket.io-client/lib/url";
-import { PreFinal } from "../redux/actions/authActions";
-import { useHistory } from "react-router";
-
-//import {ToastContainer,toast} from "react-toastify";
-//import "react-toastify/dist/ReactTostify.css";
-
-
-
+import { makeStyles } from "@material-ui/core/styles";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+const Alert = (props) => {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+};
+const useStyles = makeStyles((theme) => ({
+  main: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    padding: 40,
+    background: "#f5f8ff",
+    minHeight: "100vh",
+    fontFamily: "'Segoe UI', sans-serif",
+  },
+  paper: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 40,
+    width: "100%",
+    maxWidth: 1200,
+    padding: 20,
+    borderRadius: 20,
+    background: "#eef3ff",
+    boxShadow: "0 10px 25px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05)",
+    [theme.breakpoints.down("md")]: {
+      flexDirection: "column",
+      alignItems: "center",
+    },
+  },
+  left: {
+    flex: 1,
+    maxWidth: 500,
+    display: "flex",
+    flexDirection: "column",
+    padding: 30,
+    borderRadius: 20,
+    background: "linear-gradient(135deg, #ffffff 0%, #eef3ff 100%)",
+    boxShadow: "0 10px 25px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05)",
+  },
+  right: {
+    flex: 1,
+    maxWidth: 650,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: 20,
+  },
+  title: {
+    fontWeight: 700,
+    fontSize: "1.8rem",
+    marginBottom: 20,
+    color: "#1f3c88",
+    textAlign: "center",
+  },
+  inputFile: {
+    marginBottom: 16,
+    padding: 12,
+    borderRadius: 12,
+    border: "1px solid #ccc",
+    background: "#f8faff",
+    cursor: "pointer",
+    "&:hover": {
+      borderColor: "#1f3c88",
+      background: "#eef3ff",
+    },
+  },
+  textField: {
+    marginTop: 16,
+    marginBottom: 16,
+    "& .MuiInputBase-root": {
+      borderRadius: 12,
+      background: "#fff",
+    },
+    "& .MuiInputBase-input": {
+      padding: "12px 16px",
+    },
+  },
+  button: {
+    marginTop: 20,
+    width: "100%",
+    padding: 12,
+    borderRadius: 12,
+    fontWeight: 600,
+    color: "#fff",
+    background: "linear-gradient(90deg, #1f3c88, #4a90e2)",
+    boxShadow: "0 4px 12px rgba(31,60,136,0.4)",
+    "&:hover": {
+      transform: "translateY(-2px)",
+      boxShadow: "0 8px 20px rgba(31,60,136,0.45)",
+      background: "linear-gradient(90deg, #2a4ca3, #5b9cff)",
+    },
+  },
+  previewImage: {
+    width: "100%",
+    maxWidth: 600,
+    borderRadius: 20,
+    boxShadow: "0 10px 25px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05)",
+    transition: "transform 0.3s ease",
+    "&:hover": {
+      transform: "scale(1.02)",
+    },
+  },
+}));
 
 const Pre = () => {
+const classes = useStyles();
   const Pharmacy = useSelector((state) => state.data.Pharmacy);
+  const dispatch = useDispatch();
+
   const [image, setImage ] = useState("");
   const [ url, setUrl ] = useState("");
-  const dispatch = useDispatch();
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const history = useHistory();
-
   const handleImage=(e)=>{
     const file=e.target.files[0];
     setUrl(URL.createObjectURL(e.target.files[0]));
@@ -61,6 +153,8 @@ const Pre = () => {
       Phone:inputs.Phone,
     };
     dispatch(PreFinal(newUserData,history));
+    setOpenSnackbar(true);
+
   }
 
 
@@ -80,239 +174,143 @@ const Pre = () => {
   );
 
 
-
+const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") return;
+    setOpenSnackbar(false);
+  };
   
   return (
-    <main className="App">
-      <section className="left-side">
-        <form noValidate onSubmit={handleSubmit}>
-          <div className="form-group">
-            <input type="file" onChange= {handleImage}/>
-          </div>
+    <main className={classes.main}>
+  <div className={classes.paper}>
+    {/* Left Side Form */}
+    <section className={classes.left}>
+      <form noValidate onSubmit={handleSubmit}>
+        <input
+          type="file"
+          onChange={handleImage}
+          className={classes.inputFile}
+        />
 
-<TextField
-    id="Doc_name"
-    name="Doc"
-    placeholder="Name of Doctor"
-    onChange={handleInputChange}
-    value={inputs.Doc}
-    required
-/>
+        <TextField
+          name="Doc"
+          placeholder="Name of Doctor"
+          onChange={handleInputChange}
+          value={inputs.Doc}
+          fullWidth
+          variant="outlined"
+          className={classes.textField}
+          required
+        />
 
-<TextField
-    id="Your Name"
-    name="Yname"
-    placeholder="Your Name"
-    onChange={handleInputChange}
-    value={inputs.Yname}
-    required
-/>
+        <TextField
+          name="Yname"
+          placeholder="Your Name"
+          onChange={handleInputChange}
+          value={inputs.Yname}
+          fullWidth
+          variant="outlined"
+          className={classes.textField}
+          required
+        />
 
-<TextField
-    id="email"
-    name="Email"
-    placeholder="Your Email"
-    onChange={handleInputChange}
-    value={inputs.Email}
-    required
-/>
+        <TextField
+          name="Email"
+          placeholder="Your Email"
+          onChange={handleInputChange}
+          value={inputs.Email}
+          fullWidth
+          variant="outlined"
+          className={classes.textField}
+          required
+        />
 
-<TextField
-    id="aptName"
-    name="Aptname"
-    placeholder="Apt Name"
-    onChange={handleInputChange}
-    value={inputs.Aptname}
-    required
-/>
+        <TextField
+          name="Aptname"
+          placeholder="Apt Name"
+          onChange={handleInputChange}
+          value={inputs.Aptname}
+          fullWidth
+          variant="outlined"
+          className={classes.textField}
+          required
+        />
 
-<TextField
-    id="Locality"
-    name="Local"
-    placeholder="Locality"
-    onChange={handleInputChange}
-    value={inputs.Local}
-    required
-/>
+        <TextField
+          name="Local"
+          placeholder="Locality"
+          onChange={handleInputChange}
+          value={inputs.Local}
+          fullWidth
+          variant="outlined"
+          className={classes.textField}
+          required
+        />
 
-<TextField
-    id="Street"
-    name="street"
-    placeholder="Street"
-    onChange={handleInputChange}
-    value={inputs.street}
-    required
-/>
+        <TextField
+          name="street"
+          placeholder="Street"
+          onChange={handleInputChange}
+          value={inputs.street}
+          fullWidth
+          variant="outlined"
+          className={classes.textField}
+          required
+        />
 
-<TextField
-    id="ZipCode"
-    name="Zip"
-    placeholder="Zip_code"
-    onChange={handleInputChange}
-    value={inputs.Zip}
-    required
-/>
+        <TextField
+          name="Zip"
+          placeholder="Zip_code"
+          onChange={handleInputChange}
+          value={inputs.Zip}
+          fullWidth
+          variant="outlined"
+          className={classes.textField}
+          required
+        />
 
-<TextField
-    id="Phone"
-    name="Phone"
-    placeholder="Phone_no"
-    onChange={handleInputChange}
-    value={inputs.Phone}
-    required
-/>
- 
-        
-          <Button
-            type="submit"
-            onclick = "clearForm()"
-            className="btn">
-            Submit
-          </Button>
-        
-        </form>
-      </section>
-      <section className="right-side">
-        <p>YOUR PRESCRIPTION WILL BE DISPLAYED HERE</p>
-          <img src={url} alt="Preview" style={{ width: "600px", height: "600px" }}className="displayed-image"/>
-      </section>
-    </main>
+        <TextField
+          name="Phone"
+          placeholder="Phone_no"
+          onChange={handleInputChange}
+          value={inputs.Phone}
+          fullWidth
+          variant="outlined"
+          className={classes.textField}
+          required
+        />
+
+        <Button
+          type="submit"
+          className={classes.button}
+        >
+          Submit
+        </Button>
+      </form>
+    </section>
+
+    {/* Right Side Preview */}
+    <section className={classes.right}>
+      <p>YOUR PRESCRIPTION WILL BE DISPLAYED HERE</p>
+      {url && (
+        <img
+          src={url}
+          alt="Preview"
+          className={classes.previewImage}
+        />
+      )}
+    </section>
+    {/* Snackbar popup */}
+      <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
+        <Alert onClose={handleCloseSnackbar} severity="success">
+          Prescription submitted successfully!
+        </Alert>
+      </Snackbar>
+  </div>
+</main>
   
   )
   }
   export default Pre;
-
-
-
-
-
- {/*
-    <div>
-    <div>
-    <form noValidate onSubmit={handleSubmit}>
-          <TextField
-            id="email"
-            name="email"
-            label="email"
-            onChange={handleInputChange}
-            value={inputs.email}
-            required
-          />
-      <input type="file" onChange= {handleImage}></input>
-      <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-          >
-            Sign-up
-          </Button>
-      </form>
-      
-    </div>
-    <div>
-      <h1>Uploaded image will be displayed here</h1>
-      
-    </div>
-  </div>
-*/} 
-
-
-
-
-
-
-
-
-
-
-//natart karo e
-//Handling images with Cloudinary in React - LogRocket Blog
-
-
-{/*
-import React, { useState } from "react";
-
-function Pre(){
-  const[image,setImages]=useState("")
-
-  const submitImage=()=>{
-    const data = new FormData()
-    data.append("file",image)
-    data.append("upload_preset","GlenDemo")
-    data.append("cloud_name","dthuolnrk")
-
-    fetch("https://api.cloudinary.com/v1_1/dthuolnrk/image/upload",{
-      method:"post",
-      body:data
-
-    })
-    .then((res)=>res.json())
-    .then((data)=>{
-      console.log(data);
-    }).catch((err)=>{
-      console.log(err)
-
-    })
-     
-    
-
-  }
-  return (
-    <>
-    <div>
-      <div>
-        <input type="file" onChange={(e)=>{setImages(e.target.files[0])}}/>
-        <button onClick={submitImage}>Upload </button>
-
-
-      </div>
-    </div>
-    </>
-
-
-    
-  )
-}
-
-
-export default Pre
-
-*/}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
