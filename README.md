@@ -1,1 +1,1 @@
-"# decentralized-app" 
+MediSphere is a healthcare platform designed to improve access to medical services in London, Ontario, particularly for people who has limited access to these services. It combines doctor appointment booking, local pharmacy, prescription ordering, and location-based healthcare search into one system. 
