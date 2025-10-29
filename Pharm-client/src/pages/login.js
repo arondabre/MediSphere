@@ -24,9 +24,11 @@ const useStyles = makeStyles((theme) => ({
     margin: "10px 0px 10px 0px",
   },
   hamBurger: {
-    marginTop:40,
-    height: 170,
-    width: 160,
+    marginTop:10,
+    marginBottom:10,
+    height: 200,
+    width: 500,
+    alignment:"center",
   },
 pageBackground: {
     backgroundImage:`url(${backgroundImage})`, // or require("./images/bg.jpg")

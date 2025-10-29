@@ -56,7 +56,7 @@ const Home = () => {
               <Typography variant="h5" className={classes.center} noWrap>
 
                               
-                Your Medicine, delivered with MEDISPPHERE&nbsp;&nbsp;
+                Your Medicine, delivered with MEDISPHERE&nbsp;&nbsp;
                 <span style={{ fontSize: 40 }}>💉⚕️</span>
               </Typography>
             </Grid>

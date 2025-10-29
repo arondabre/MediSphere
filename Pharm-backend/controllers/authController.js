@@ -306,7 +306,7 @@ exports.imagesTest = (req, res, next) => {
 
 
 // precsription
-exports.Prescription = (req, res, next) => {
+exports.Prescription = async (req, res, next) => {
 
   const name = req.body.Doc;
   const image = req.body.img;
@@ -323,7 +323,7 @@ exports.Prescription = (req, res, next) => {
 
   
   try{
-    const result = cloudinary.uploader.upload(image,{
+    const result = await cloudinary.uploader.upload(image,{
 
       folder: "precriptions",
       width: 300,
